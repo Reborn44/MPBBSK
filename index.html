@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hlasovanie MP-BBSK</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+
+<div id="auth-container" class="main-container">
+  <img src="logo.png" alt="Logo MP-BBSK" class="logo">
+
+  <nav class="auth-nav">
+    <button id="show-login-btn" class="active">Prihlásiť sa</button>
+    <button id="show-signup-btn">Zaregistrovať sa</button>
+  </nav>
+
+  <div id="login-form">
+    <div class="form-control">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="vas@email.com">
+    </div>
+    <div class="form-control">
+      <label for="login-password">Heslo</label>
+      <input type="password" id="login-password" placeholder="••••••••">
+    </div>
+    <button id="login-button" class="full-width">Prihlásiť sa</button>
+  </div>
+
+  <div id="signup-form" class="hidden">
+    <div class="form-control">
+      <label for="signup-firstname">Krstné meno</label>
+      <input type="text" id="signup-firstname" placeholder="Ján">
+    </div>
+    <div class="form-control">
+      <label for="signup-lastname">Priezvisko</label>
+      <input type="text" id="signup-lastname" placeholder="Mrkvička">
+    </div>
+    <div class="form-control">
+      <label for="signup-email">Email</label>
+      <input type="email" id="signup-email" placeholder="vas@email.com">
+    </div>
+    <div class="form-control">
+      <label for="signup-password">Heslo</label>
+      <input type="password" id="signup-password" placeholder="Minimálne 6 znakov">
+    </div>
+    <button id="signup-button" class="full-width">Zaregistrovať sa</button>
+  </div>
+</div>
+
+<div id="welcome-animation" class="main-container hidden">
+  <img src="logo.png" alt="Logo MP-BBSK" class="logo">
+  <h2 id="welcome-message"></h2>
+</div>
+
+<div id="app-container" class="main-container hidden">
+  <header class="app-header">
+    <h1>Mládežnícky parlament BBSK</h1>
+    <div class="user-info">
+      <div id="user-details">
+        <span id="user-name-display" class="user-name"></span>
+        <span id="user-email-display" class="user-email"></span>
+      </div>
+      <button id="logout-button">Odhlásiť sa</button>
+    </div>
+  </header>
+
+  <nav class="app-nav">
+    <button id="show-active-polls-btn" class="active">Aktívne hlasovania</button>
+    <button id="show-results-btn">Zobraziť výsledky</button>
+  </nav>
+
+  <main id="polls-container"></main>
+  <main id="results-container" class="hidden"></main>
+</div>
+
+<footer>
+  <p>Hlasovací systém MP-BBSK</p>
+</footer>
+
+</body>
+</html>
