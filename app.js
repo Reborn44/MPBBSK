@@ -243,7 +243,7 @@ const fetchResults = async () => {
     try {
         // Call the new database function instead of fetching tables directly
         const { data: polls, error } = await supabaseClient.rpc('get_poll_results');
-
+        console.log(polls);
         if (error) throw error;
 
         if (polls.length === 0) {
