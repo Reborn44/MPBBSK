@@ -1,1 +1,335 @@
-const _0x39c535=_0x582e;(function(_0x2df295,_0x31ede){const _0x4cb2ab=_0x582e,_0x5bc9ff=_0x2df295();while(!![]){try{const _0x51d8be=parseInt(_0x4cb2ab(0x1a4))/0x1+parseInt(_0x4cb2ab(0x176))/0x2*(parseInt(_0x4cb2ab(0x1b3))/0x3)+-parseInt(_0x4cb2ab(0x161))/0x4*(-parseInt(_0x4cb2ab(0x15d))/0x5)+-parseInt(_0x4cb2ab(0x1a2))/0x6+-parseInt(_0x4cb2ab(0x154))/0x7*(-parseInt(_0x4cb2ab(0x18c))/0x8)+parseInt(_0x4cb2ab(0x165))/0x9+-parseInt(_0x4cb2ab(0x188))/0xa;if(_0x51d8be===_0x31ede)break;else _0x5bc9ff['push'](_0x5bc9ff['shift']());}catch(_0x14787c){_0x5bc9ff['push'](_0x5bc9ff['shift']());}}}(_0x346b,0x91085));function _0x346b(){const _0x5c720f=['<p>Načítavam\x20výsledky...</p>','show-signup-btn','signInWithPassword','user_metadata','forEach','full_name','signup-button','login-button','classList','value','welcome-animation','104978qkOjVL','options','<h3>','selected_option','signUp','getUser','signup-password','\x22]:checked','length','show-login-btn','</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<form>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22options\x22>','email','add','from','Error\x20fetching\x20results:','polls','input[name=\x22poll-','poll_id','16438900ykTvzz','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJia2pobXVzdHNteGNlbmRreXhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5ODE5NTQsImV4cCI6MjA2NzU1Nzk1NH0.E1dkg5_wNHmLovmQ3k7n3oQf3zd_Ag-cB0fsUo0yjls','https://rbkjhmustsmxcendkyxj.supabase.co','includes','16dVUbAn','user-name-display','\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22option-name\x22>','\x22\x20value=\x22','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20type=\x22submit\x22\x20','\x20hlasov</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','question','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22option\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22radio\x22\x20id=\x22option-','addEventListener','auth-container','results-container','login-email','</div>','<div\x20class=\x22final-winner-announcement\x22>Hlasovanie\x20skončilo\x20nerozhodne\x20medzi:\x20','trim','user-email-display','has','<p>Načítavam\x20hlasovania...</p>','signup-lastname','app-container','className','select','7028898lvVhgL','join','654149YtEUCB','push','Už\x20ste\x20hlasovali','<p>Nie\x20sú\x20k\x20dispozícii\x20žiadne\x20výsledky\x20z\x20ukončených\x20hlasovaní.</p>','preventDefault','Ľutujeme,\x20pri\x20odosielaní\x20hlasu\x20sa\x20vyskytla\x20chyba.','23505','Heslo\x20musí\x20mať\x20aspoň\x206\x20znakov.','Vitaj,\x20','signup-form','<div\x20class=\x22final-winner-announcement\x22>Víťaz:\x20','login-password','div','hidden','is_active','63ocHZKp','auth','active','show-active-polls-btn','Chyba\x20pri\x20prihlasovaní:\x20','textContent','poll_id,\x20selected_option','map','createClient','split','innerText','</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</form>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','Error\x20casting\x20vote:','createElement','welcome-message','filter','getElementById','<div\x20class=\x22final-winner-announcement\x22>V\x20tomto\x20hlasovaní\x20neboli\x20odovzdané\x20žiadne\x20hlasy.</div>','remove','click','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>','show-results-btn','message','Error\x20fetching\x20polls:','winner','1405824SAbayO','innerHTML','poll-card','appendChild','querySelector','error','Registrácia\x20úspešná!\x20Prosím,\x20potvrďte\x20svoj\x20email\x20kliknutím\x20na\x20odkaz,\x20ktorý\x20sme\x20vám\x20zaslali.','V\x20tomto\x20hlasovaní\x20ste\x20už\x20hlasovali.','<p>Ľutujeme,\x20pri\x20načítaní\x20výsledkov\x20sa\x20vyskytla\x20chyba.</p>','276970dXQFYU','<p>Momentálne\x20nie\x20sú\x20k\x20dispozícii\x20žiadne\x20aktívne\x20hlasovania.</p>','</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','Chyba\x20pri\x20registrácii:\x20','36IOUiUf','Prosím,\x20zadajte\x20vaše\x20meno\x20a\x20priezvisko.','\x22\x20class=\x22option-label\x22>','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22result-item\x20','6775182xroEDI','Váš\x20hlas\x20bol\x20úspešne\x20odoslaný!','</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22vote-count\x22>','signup-firstname','votes','submit'];_0x346b=function(){return _0x5c720f;};return _0x346b();}const SUPABASE_URL=_0x39c535(0x18a),SUPABASE_KEY=_0x39c535(0x189),supabaseClient=supabase[_0x39c535(0x1bb)](SUPABASE_URL,SUPABASE_KEY),authContainer=document[_0x39c535(0x1c3)](_0x39c535(0x195)),appContainer=document['getElementById'](_0x39c535(0x19f)),logoutButton=document[_0x39c535(0x1c3)]('logout-button'),showLoginBtn=document[_0x39c535(0x1c3)](_0x39c535(0x17f)),showSignupBtn=document[_0x39c535(0x1c3)](_0x39c535(0x16c)),loginForm=document['getElementById']('login-form'),signupForm=document[_0x39c535(0x1c3)](_0x39c535(0x1ad)),loginEmailInput=document[_0x39c535(0x1c3)](_0x39c535(0x197)),loginPasswordInput=document[_0x39c535(0x1c3)](_0x39c535(0x1af)),loginButton=document[_0x39c535(0x1c3)](_0x39c535(0x172)),signupFirstnameInput=document[_0x39c535(0x1c3)](_0x39c535(0x168)),signupLastnameInput=document[_0x39c535(0x1c3)](_0x39c535(0x19e)),signupEmailInput=document['getElementById']('signup-email'),signupPasswordInput=document['getElementById'](_0x39c535(0x17c)),signupButton=document[_0x39c535(0x1c3)](_0x39c535(0x171)),pollsContainer=document['getElementById']('polls-container'),resultsContainer=document[_0x39c535(0x1c3)](_0x39c535(0x196)),showActivePollsBtn=document['getElementById'](_0x39c535(0x1b6)),showResultsBtn=document[_0x39c535(0x1c3)](_0x39c535(0x1c8)),welcomeAnimationContainer=document[_0x39c535(0x1c3)](_0x39c535(0x175)),welcomeMessage=document['getElementById'](_0x39c535(0x1c1)),userNameDisplay=document[_0x39c535(0x1c3)](_0x39c535(0x18d)),userEmailDisplay=document[_0x39c535(0x1c3)](_0x39c535(0x19b));showLoginBtn[_0x39c535(0x194)](_0x39c535(0x1c6),()=>{const _0x26e6b8=_0x39c535;loginForm[_0x26e6b8(0x173)]['remove']('hidden'),signupForm['classList'][_0x26e6b8(0x182)](_0x26e6b8(0x1b1)),showLoginBtn['classList']['add'](_0x26e6b8(0x1b5)),showSignupBtn[_0x26e6b8(0x173)][_0x26e6b8(0x1c5)](_0x26e6b8(0x1b5));}),showSignupBtn[_0x39c535(0x194)](_0x39c535(0x1c6),()=>{const _0x162951=_0x39c535;loginForm[_0x162951(0x173)][_0x162951(0x182)]('hidden'),signupForm['classList'][_0x162951(0x1c5)](_0x162951(0x1b1)),showLoginBtn[_0x162951(0x173)][_0x162951(0x1c5)](_0x162951(0x1b5)),showSignupBtn[_0x162951(0x173)]['add'](_0x162951(0x1b5));}),loginButton[_0x39c535(0x194)]('click',async()=>{const _0x5dea3e=_0x39c535,{error:_0x5ba134}=await supabaseClient[_0x5dea3e(0x1b4)][_0x5dea3e(0x16d)]({'email':loginEmailInput['value'],'password':loginPasswordInput[_0x5dea3e(0x174)]});if(_0x5ba134)alert(_0x5dea3e(0x1b7)+_0x5ba134[_0x5dea3e(0x1c9)]);else checkUser();}),signupButton['addEventListener'](_0x39c535(0x1c6),async()=>{const _0x38da86=_0x39c535,_0x5a80e3=signupFirstnameInput['value'][_0x38da86(0x19a)]()+'\x20'+signupLastnameInput[_0x38da86(0x174)][_0x38da86(0x19a)](),_0x4cbd20=signupEmailInput['value'],_0x37d824=signupPasswordInput[_0x38da86(0x174)];if(!signupFirstnameInput[_0x38da86(0x174)]||!signupLastnameInput['value'])return alert(_0x38da86(0x162));if(_0x37d824[_0x38da86(0x17e)]<0x6)return alert(_0x38da86(0x1ab));const {data:_0x6a106,error:_0x4d26d0}=await supabaseClient[_0x38da86(0x1b4)][_0x38da86(0x17a)]({'email':_0x4cbd20,'password':_0x37d824,'options':{'data':{'full_name':_0x5a80e3,'email':_0x4cbd20}}});if(_0x4d26d0)alert(_0x38da86(0x160)+_0x4d26d0[_0x38da86(0x1c9)]);else alert(_0x38da86(0x15a));}),logoutButton[_0x39c535(0x194)](_0x39c535(0x1c6),()=>{const _0x2a0a41=_0x39c535;supabaseClient[_0x2a0a41(0x1b4)]['signOut'](),checkUser();}),showActivePollsBtn[_0x39c535(0x194)](_0x39c535(0x1c6),()=>{const _0x1715ad=_0x39c535;pollsContainer[_0x1715ad(0x173)][_0x1715ad(0x1c5)]('hidden'),resultsContainer['classList'][_0x1715ad(0x182)](_0x1715ad(0x1b1)),showActivePollsBtn[_0x1715ad(0x173)]['add'](_0x1715ad(0x1b5)),showResultsBtn[_0x1715ad(0x173)][_0x1715ad(0x1c5)](_0x1715ad(0x1b5)),resultsContainer[_0x1715ad(0x155)]='',fetchPolls();}),showResultsBtn['addEventListener'](_0x39c535(0x1c6),()=>{const _0x24ed84=_0x39c535;pollsContainer['classList'][_0x24ed84(0x182)]('hidden'),resultsContainer['classList'][_0x24ed84(0x1c5)](_0x24ed84(0x1b1)),showActivePollsBtn[_0x24ed84(0x173)][_0x24ed84(0x1c5)](_0x24ed84(0x1b5)),showResultsBtn[_0x24ed84(0x173)][_0x24ed84(0x182)]('active'),pollsContainer['innerHTML']='',fetchResults();});const checkUser=async()=>{const _0x2c1be8=_0x39c535,{data:{user:_0x34916f}}=await supabaseClient['auth'][_0x2c1be8(0x17b)]();if(_0x34916f){authContainer[_0x2c1be8(0x173)][_0x2c1be8(0x182)]('hidden'),appContainer[_0x2c1be8(0x173)][_0x2c1be8(0x182)](_0x2c1be8(0x1b1));const _0x552cdf=_0x34916f[_0x2c1be8(0x16e)][_0x2c1be8(0x170)]||_0x34916f[_0x2c1be8(0x181)];welcomeMessage[_0x2c1be8(0x1bd)]=_0x2c1be8(0x1ac)+_0x552cdf,welcomeAnimationContainer['classList']['remove'](_0x2c1be8(0x1b1)),setTimeout(()=>{const _0x157377=_0x2c1be8;welcomeAnimationContainer[_0x157377(0x173)][_0x157377(0x182)](_0x157377(0x1b1)),appContainer[_0x157377(0x173)][_0x157377(0x1c5)](_0x157377(0x1b1));const _0x236d6a=_0x34916f[_0x157377(0x16e)]['full_name']||_0x34916f['email'][_0x157377(0x1bc)]('@')[0x0];userNameDisplay[_0x157377(0x1b8)]=_0x236d6a,userEmailDisplay[_0x157377(0x1b8)]=_0x34916f[_0x157377(0x181)],showActivePollsBtn['click']();},0xbb8);}else authContainer[_0x2c1be8(0x173)]['remove'](_0x2c1be8(0x1b1)),appContainer['classList']['add'](_0x2c1be8(0x1b1)),welcomeAnimationContainer['classList'][_0x2c1be8(0x182)]('hidden'),loginEmailInput[_0x2c1be8(0x174)]='',loginPasswordInput[_0x2c1be8(0x174)]='',signupFirstnameInput[_0x2c1be8(0x174)]='',signupLastnameInput[_0x2c1be8(0x174)]='',signupEmailInput['value']='',signupPasswordInput[_0x2c1be8(0x174)]='';},fetchPolls=async()=>{const _0x50b483=_0x39c535;pollsContainer[_0x50b483(0x155)]=_0x50b483(0x19d);try{const {data:_0xfd54bb,error:_0x4350a4}=await supabaseClient[_0x50b483(0x183)]('polls')['select']('*')['eq'](_0x50b483(0x1b2),!![]);if(_0x4350a4)throw _0x4350a4;const {data:{user:_0xd9ad45}}=await supabaseClient['auth'][_0x50b483(0x17b)](),{data:_0x2ad37b,error:_0x6d2aa0}=await supabaseClient[_0x50b483(0x183)](_0x50b483(0x169))[_0x50b483(0x1a1)](_0x50b483(0x187))['eq']('user_id',_0xd9ad45['id']);if(_0x6d2aa0)throw _0x6d2aa0;const _0x32c211=new Set(_0x2ad37b[_0x50b483(0x1ba)](_0x1ca44d=>_0x1ca44d[_0x50b483(0x187)]));if(_0xfd54bb[_0x50b483(0x17e)]===0x0){pollsContainer[_0x50b483(0x155)]=_0x50b483(0x15e);return;}pollsContainer['innerHTML']='';for(const _0x5d6f79 of _0xfd54bb){const _0xdd948e=_0x32c211[_0x50b483(0x19c)](_0x5d6f79['id']),_0x5e99f5=document[_0x50b483(0x1c0)]('div');_0x5e99f5[_0x50b483(0x1a0)]=_0x50b483(0x156);const _0x4ee08c=_0x5d6f79[_0x50b483(0x177)][_0x50b483(0x1ba)](_0x38cf7f=>_0x50b483(0x193)+_0x5d6f79['id']+'-'+_0x38cf7f+'\x22\x20name=\x22poll-'+_0x5d6f79['id']+_0x50b483(0x18f)+_0x38cf7f+'\x22\x20'+(_0xdd948e?'disabled':'')+'>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22option-'+_0x5d6f79['id']+'-'+_0x38cf7f+_0x50b483(0x163)+_0x38cf7f+_0x50b483(0x15f))[_0x50b483(0x1a3)]('');_0x5e99f5['innerHTML']=_0x50b483(0x1c7)+_0x5d6f79['question']+_0x50b483(0x180)+_0x4ee08c+_0x50b483(0x190)+(_0xdd948e?'disabled':'')+'>'+(_0xdd948e?_0x50b483(0x1a6):'Odoslať\x20môj\x20hlas')+_0x50b483(0x1be),pollsContainer[_0x50b483(0x157)](_0x5e99f5),!_0xdd948e&&_0x5e99f5[_0x50b483(0x158)]('form')[_0x50b483(0x194)](_0x50b483(0x16a),async _0x25d183=>{const _0x1b2483=_0x50b483;_0x25d183[_0x1b2483(0x1a8)]();const _0x9da46=_0x5e99f5['querySelector'](_0x1b2483(0x186)+_0x5d6f79['id']+_0x1b2483(0x17d));if(!_0x9da46){alert('Prosím,\x20vyberte\x20jednu\x20z\x20možností.');return;}await castVote(_0x5d6f79['id'],_0x9da46[_0x1b2483(0x174)],_0xd9ad45);});}}catch(_0xae4072){console[_0x50b483(0x159)](_0x50b483(0x152),_0xae4072),pollsContainer[_0x50b483(0x155)]='<p>Ľutujeme,\x20pri\x20načítaní\x20hlasovaní\x20sa\x20vyskytla\x20chyba.</p>';}},fetchResults=async()=>{const _0x2fb4ed=_0x39c535;resultsContainer[_0x2fb4ed(0x155)]=_0x2fb4ed(0x16b);try{const {data:_0x468f62,error:_0x1f947c}=await supabaseClient[_0x2fb4ed(0x183)](_0x2fb4ed(0x185))[_0x2fb4ed(0x1a1)]('*')['eq'](_0x2fb4ed(0x1b2),![]);if(_0x1f947c)throw _0x1f947c;if(_0x468f62['length']===0x0){resultsContainer[_0x2fb4ed(0x155)]=_0x2fb4ed(0x1a7);return;}const {data:_0x1539ac,error:_0x1318b0}=await supabaseClient['from'](_0x2fb4ed(0x169))['select'](_0x2fb4ed(0x1b9));if(_0x1318b0)throw _0x1318b0;resultsContainer[_0x2fb4ed(0x155)]='';for(const _0x16f515 of _0x468f62){const _0x404b03=_0x1539ac[_0x2fb4ed(0x1c2)](_0x3efe0c=>_0x3efe0c[_0x2fb4ed(0x187)]===_0x16f515['id']),_0x39f832={};_0x16f515[_0x2fb4ed(0x177)][_0x2fb4ed(0x16f)](_0x4da669=>_0x39f832[_0x4da669]=0x0),_0x404b03[_0x2fb4ed(0x16f)](_0x2a6d80=>_0x39f832[_0x2a6d80[_0x2fb4ed(0x179)]]++);let _0x386489=0x0;for(const _0x5ddae7 in _0x39f832){if(_0x39f832[_0x5ddae7]>_0x386489)_0x386489=_0x39f832[_0x5ddae7];}const _0x3681a3=[];if(_0x386489>0x0)for(const _0x594da9 in _0x39f832){if(_0x39f832[_0x594da9]===_0x386489)_0x3681a3[_0x2fb4ed(0x1a5)](_0x594da9);}const _0x57c5e3=document[_0x2fb4ed(0x1c0)](_0x2fb4ed(0x1b0));_0x57c5e3[_0x2fb4ed(0x1a0)]='result-card';let _0x6337dc=_0x16f515[_0x2fb4ed(0x177)][_0x2fb4ed(0x1ba)](_0x12012f=>_0x2fb4ed(0x164)+(_0x3681a3[_0x2fb4ed(0x18b)](_0x12012f)?_0x2fb4ed(0x153):'')+_0x2fb4ed(0x18e)+_0x12012f+_0x2fb4ed(0x167)+_0x39f832[_0x12012f]+_0x2fb4ed(0x191))['join'](''),_0x720d='';if(_0x3681a3['length']>0x1)_0x720d=_0x2fb4ed(0x199)+_0x3681a3['join'](',\x20')+_0x2fb4ed(0x198);else _0x3681a3['length']===0x1?_0x720d=_0x2fb4ed(0x1ae)+_0x3681a3[0x0]+_0x2fb4ed(0x198):_0x720d=_0x2fb4ed(0x1c4);_0x57c5e3[_0x2fb4ed(0x155)]=_0x2fb4ed(0x178)+_0x16f515[_0x2fb4ed(0x192)]+'</h3>\x20'+_0x6337dc+'\x20'+_0x720d,resultsContainer[_0x2fb4ed(0x157)](_0x57c5e3);}}catch(_0x4cec6c){console[_0x2fb4ed(0x159)](_0x2fb4ed(0x184),_0x4cec6c),resultsContainer['innerHTML']=_0x2fb4ed(0x15c);}},castVote=async(_0x2dfb5a,_0xae87a0,_0x4b7a3e)=>{const _0x27f4eb=_0x39c535;try{const {error:_0x5ed775}=await supabaseClient[_0x27f4eb(0x183)](_0x27f4eb(0x169))['insert']([{'poll_id':_0x2dfb5a,'selected_option':_0xae87a0,'user_id':_0x4b7a3e['id'],'email':_0x4b7a3e['email']}]);if(_0x5ed775){if(_0x5ed775['code']===_0x27f4eb(0x1aa))alert(_0x27f4eb(0x15b));else throw _0x5ed775;}else alert(_0x27f4eb(0x166)),fetchPolls();}catch(_0x417b45){console[_0x27f4eb(0x159)](_0x27f4eb(0x1bf),_0x417b45),alert(_0x27f4eb(0x1a9));}};function _0x582e(_0x34b9fb,_0xc21239){const _0x346b76=_0x346b();return _0x582e=function(_0x582e11,_0x2500f2){_0x582e11=_0x582e11-0x152;let _0x1765ca=_0x346b76[_0x582e11];return _0x1765ca;},_0x582e(_0x34b9fb,_0xc21239);}checkUser();
+// =================================================================================
+// !! IMPORTANT !!
+// YOUR SUPABASE CREDENTIALS GO HERE
+// =================================================================================
+const SUPABASE_URL = 'https://rbkjhmustsmxcendkyxj.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJia2pobXVzdHNteGNlbmRreXhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5ODE5NTQsImV4cCI6MjA2NzU1Nzk1NH0.E1dkg5_wNHmLovmQ3k7n3oQf3zd_Ag-cB0fsUo0yjls';
+
+// =================================================================================
+// Initialize the Supabase Client
+// =================================================================================
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// =================================================================================
+// Select all the HTML elements we will be working with
+// =================================================================================
+const authContainer = document.getElementById('auth-container');
+const appContainer = document.getElementById('app-container');
+const logoutButton = document.getElementById('logout-button');
+
+// Auth Tab elements
+const showLoginBtn = document.getElementById('show-login-btn');
+const showSignupBtn = document.getElementById('show-signup-btn');
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+
+// Login form inputs
+const loginEmailInput = document.getElementById('login-email');
+const loginPasswordInput = document.getElementById('login-password');
+const loginButton = document.getElementById('login-button');
+
+// Signup form inputs
+const signupFirstnameInput = document.getElementById('signup-firstname');
+const signupLastnameInput = document.getElementById('signup-lastname');
+const signupEmailInput = document.getElementById('signup-email');
+const signupPasswordInput = document.getElementById('signup-password');
+const signupButton = document.getElementById('signup-button');
+
+// Main content containers
+const pollsContainer = document.getElementById('polls-container');
+const resultsContainer = document.getElementById('results-container');
+const showActivePollsBtn = document.getElementById('show-active-polls-btn');
+const showResultsBtn = document.getElementById('show-results-btn');
+
+// Animation and User Display elements
+const welcomeAnimationContainer = document.getElementById('welcome-animation');
+const welcomeMessage = document.getElementById('welcome-message');
+const userNameDisplay = document.getElementById('user-name-display');
+const userEmailDisplay = document.getElementById('user-email-display');
+
+// =================================================================================
+// Event Listeners
+// =================================================================================
+
+// Auth Tab Switching
+showLoginBtn.addEventListener('click', () => {
+    loginForm.classList.remove('hidden');
+    signupForm.classList.add('hidden');
+    showLoginBtn.classList.add('active');
+    showSignupBtn.classList.remove('active');
+});
+
+showSignupBtn.addEventListener('click', () => {
+    loginForm.classList.add('hidden');
+    signupForm.classList.remove('hidden');
+    showLoginBtn.classList.remove('active');
+    showSignupBtn.classList.add('active');
+});
+
+// Authentication Buttons
+loginButton.addEventListener('click', async () => {
+    const {error} = await supabaseClient.auth.signInWithPassword({
+        email: loginEmailInput.value,
+        password: loginPasswordInput.value
+    });
+    if (error)
+        alert('Chyba pri prihlasovaní: ' + error.message);
+    else
+        checkUser();
+});
+
+signupButton.addEventListener('click', async () => {
+    const fullName = `${signupFirstnameInput.value.trim()} ${signupLastnameInput.value.trim()}`;
+    const email = signupEmailInput.value;
+    const password = signupPasswordInput.value;
+
+    if (!signupFirstnameInput.value || !signupLastnameInput.value) {
+        return alert('Prosím, zadajte vaše meno a priezvisko.');
+    }
+    if (password.length < 6) {
+        return alert('Heslo musí mať aspoň 6 znakov.');
+    }
+
+    const {data, error} = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+            data: {
+                full_name: fullName,
+                email: email
+            }
+        }
+    });
+
+    if (error)
+        alert('Chyba pri registrácii: ' + error.message);
+    else
+        alert('Registrácia úspešná! Prosím, potvrďte svoj email kliknutím na odkaz, ktorý sme vám zaslali.');
+});
+
+logoutButton.addEventListener('click', () => {
+    supabaseClient.auth.signOut();
+    checkUser();
+});
+
+// App Tab Switching
+showActivePollsBtn.addEventListener('click', () => {
+    pollsContainer.classList.remove('hidden');
+    resultsContainer.classList.add('hidden');
+    showActivePollsBtn.classList.add('active');
+    showResultsBtn.classList.remove('active');
+    resultsContainer.innerHTML = '';
+    fetchPolls();
+});
+
+showResultsBtn.addEventListener('click', () => {
+    pollsContainer.classList.add('hidden');
+    resultsContainer.classList.remove('hidden');
+    showActivePollsBtn.classList.remove('active');
+    showResultsBtn.classList.add('active');
+    pollsContainer.innerHTML = '';
+    fetchResults();
+});
+
+// =================================================================================
+// Core Application Logic
+// =================================================================================
+
+const checkUser = async () => {
+    const {data: {user}} = await supabaseClient.auth.getUser();
+    if (user) {
+        // User is logged in, show welcome animation first
+        authContainer.classList.add('hidden');
+        appContainer.classList.add('hidden');
+
+        const welcomeName = user.user_metadata.full_name || user.email;
+        welcomeMessage.innerText = `Vitaj, ${welcomeName}`;
+
+        welcomeAnimationContainer.classList.remove('hidden');
+
+        // Wait for animation to finish, then show the main app
+        setTimeout(() => {
+            welcomeAnimationContainer.classList.add('hidden');
+            appContainer.classList.remove('hidden');
+
+            const headerDisplayName = user.user_metadata.full_name || user.email.split('@')[0];
+            userNameDisplay.textContent = headerDisplayName;
+            userEmailDisplay.textContent = user.email;
+
+            showActivePollsBtn.click();
+        }, 3000);
+
+    } else {
+        // User is not logged in
+        authContainer.classList.remove('hidden');
+        appContainer.classList.add('hidden');
+        welcomeAnimationContainer.classList.add('hidden');
+        // Reset forms
+        loginEmailInput.value = '';
+        loginPasswordInput.value = '';
+        signupFirstnameInput.value = '';
+        signupLastnameInput.value = '';
+        signupEmailInput.value = '';
+        signupPasswordInput.value = '';
+    }
+};
+
+const fetchPolls = async () => {
+    pollsContainer.innerHTML = '<p>Načítavam hlasovania...</p>';
+    try {
+        const {data: polls, error: pollsError} = await supabaseClient.from('polls').select('*').eq('is_active', true);
+        if (pollsError)
+            throw pollsError;
+
+        const {data: {user}} = await supabaseClient.auth.getUser();
+        const {data: userVotes, error: userVotesError} = await supabaseClient.from('votes').select('poll_id').eq('user_id', user.id);
+        if (userVotesError)
+            throw userVotesError;
+        const userVotedPollIds = new Set(userVotes.map(v => v.poll_id));
+
+        if (polls.length === 0) {
+            pollsContainer.innerHTML = '<p>Momentálne nie sú k dispozícii žiadne aktívne hlasovania.</p>';
+            return;
+        }
+
+        pollsContainer.innerHTML = '';
+        for (const poll of polls) {
+            const hasUserVoted = userVotedPollIds.has(poll.id);
+            const pollCard = document.createElement('div');
+            pollCard.className = 'poll-card';
+
+            const optionsHTML = poll.options.map(option => `
+                <div class="option">
+                    <input type="radio" id="option-${
+                poll.id}-${option}" name="poll-${poll.id}" value="${option}" ${hasUserVoted ? 'disabled' : ''}>
+                    <label for="option-${poll.id}-${option}" class="option-label">${option}</label>
+                </div>
+            `
+
+            ).join('');
+
+            pollCard.innerHTML = `
+                <h3>${poll.question}</h3>
+                <form>
+                    <div class="options">${
+                optionsHTML}</div>
+                    <button type="submit" ${hasUserVoted ? 'disabled' : ''}>${hasUserVoted ? 'Už ste hlasovali' : 'Odoslať môj hlas'}</button>
+                </form>
+            `
+
+            ;
+            pollsContainer.appendChild(pollCard);
+
+            if (!hasUserVoted) {
+                pollCard.querySelector('form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const selectedOption = pollCard.querySelector(`input[name="poll-${poll.id}"]:checked`);
+                    if (!selectedOption) {
+                        alert('Prosím, vyberte jednu z možností.');
+                        return;
+                    }
+                    await castVote(poll.id, selectedOption.value, user);
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching polls:', error);
+        pollsContainer.innerHTML = '<p>Ľutujeme, pri načítaní hlasovaní sa vyskytla chyba.</p>';
+    }
+};
+
+const fetchResults = async () => {
+    resultsContainer.innerHTML = '<p>Načítavam výsledky...</p>';
+    try {
+        // Call the new database function instead of fetching tables directly
+        const { data: polls, error } = await supabaseClient.rpc('get_poll_results');
+
+        if (error) throw error;
+
+        if (polls.length === 0) {
+            resultsContainer.innerHTML = '<p>Nie sú k dispozícii žiadne výsledky z ukončených hlasovaní.</p>';
+            return;
+        }
+
+        resultsContainer.innerHTML = '';
+        for (const poll of polls) {
+            const results = poll.results || {}; // Use the pre-calculated results
+
+            let maxVotes = 0;
+            // Find the winner(s)
+            for (const option of poll.options) {
+                const voteCount = results[option] || 0;
+                if (voteCount > maxVotes) {
+                    maxVotes = voteCount;
+                }
+            }
+
+            const winners = [];
+            if (maxVotes > 0) {
+                for (const option of poll.options) {
+                    if ((results[option] || 0) === maxVotes) {
+                        winners.push(option);
+                    }
+                }
+            }
+
+            const resultCard = document.createElement('div');
+            resultCard.className = 'result-card';
+
+            // Display the results
+            let resultsHTML = poll.options.map(option => {
+                const voteCount = results[option] || 0;
+                return `
+          <div class="result-item ${winners.includes(option) ? 'winner' : ''}">
+            <span class="option-name">${option}</span>
+            <span class="vote-count">${voteCount} hlasov</span>
+          </div>
+        `;
+            }).join('');
+
+            // Display the winner announcement
+            let winnerAnnouncement = '';
+            if (winners.length > 1) {
+                winnerAnnouncement = `<div class="final-winner-announcement">Hlasovanie skončilo nerozhodne medzi: ${winners.join(', ')}</div>`;
+            } else if (winners.length === 1) {
+                winnerAnnouncement = `<div class="final-winner-announcement">Víťaz: ${winners[0]}</div>`;
+            } else {
+                winnerAnnouncement = `<div class="final-winner-announcement">V tomto hlasovaní neboli odovzdané žiadne hlasy.</div>`;
+            }
+
+            resultCard.innerHTML = `<h3>${poll.question}</h3> ${resultsHTML} ${winnerAnnouncement}`;
+            resultsContainer.appendChild(resultCard);
+        }
+    } catch (error) {
+        console.error('Error fetching results:', error);
+        resultsContainer.innerHTML = '<p>Ľutujeme, pri načítaní výsledkov sa vyskytla chyba.</p>';
+    }
+};
+
+const castVote = async (pollId, selectedOption, user) => {
+    try {
+        const {error} = await supabaseClient.from('votes').insert([{
+            poll_id: pollId,
+            selected_option: selectedOption,
+            user_id: user.id,
+            email: user.email
+        }]);
+        if (error) {
+            if (error.code === '23505')
+                alert('V tomto hlasovaní ste už hlasovali.');
+            else
+                throw error;
+        } else {
+            alert('Váš hlas bol úspešne odoslaný!');
+            fetchPolls();
+        }
+    } catch (error) {
+        console.error('Error casting vote:', error);
+        alert('Ľutujeme, pri odosielaní hlasu sa vyskytla chyba.');
+    }
+};
+
+// =================================================================================
+// Initial Load
+// =================================================================================
+checkUser();
