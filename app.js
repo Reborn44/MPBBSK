@@ -1,23 +1,16 @@
-// =================================================================================
-// !! IMPORTANT !!
-// YOUR SUPABASE CREDENTIALS GO HERE
-// =================================================================================
+
 const SUPABASE_URL = 'https://rbkjhmustsmxcendkyxj.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJia2pobXVzdHNteGNlbmRreXhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5ODE5NTQsImV4cCI6MjA2NzU1Nzk1NH0.E1dkg5_wNHmLovmQ3k7n3oQf3zd_Ag-cB0fsUo0yjls';
 
-// =================================================================================
-// Initialize the Supabase Client
-// =================================================================================
+
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// =================================================================================
-// Select all the HTML elements we will be working with
-// =================================================================================
+
 const authContainer = document.getElementById('auth-container');
 const appContainer = document.getElementById('app-container');
 const logoutButton = document.getElementById('logout-button');
 
-// Auth Tab elements
+
 const showLoginBtn = document.getElementById('show-login-btn');
 const showSignupBtn = document.getElementById('show-signup-btn');
 const loginForm = document.getElementById('login-form');
@@ -47,9 +40,7 @@ const welcomeMessage = document.getElementById('welcome-message');
 const userNameDisplay = document.getElementById('user-name-display');
 const userEmailDisplay = document.getElementById('user-email-display');
 
-// =================================================================================
-// Event Listeners
-// =================================================================================
+
 
 // Auth Tab Switching
 showLoginBtn.addEventListener('click', () => {
@@ -243,7 +234,7 @@ const fetchResults = async () => {
     try {
         // Call the new database function instead of fetching tables directly
         const { data: polls, error } = await supabaseClient.rpc('get_poll_results');
-
+        console.log(polls);
         if (error) throw error;
 
         if (polls.length === 0) {
