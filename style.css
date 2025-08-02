@@ -388,3 +388,77 @@ footer {
 .toast-message {
   font-weight: 500;
 }
+
+/* --- Skeleton Loader Styles --- */
+.skeleton-card {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 25px; /* Matches gap in your containers */
+}
+
+.skeleton-line {
+  height: 20px;
+  background-color: #e9ecef; /* A light grey for the placeholder */
+  border-radius: 4px;
+  margin-bottom: 15px;
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.skeleton-line:last-child {
+  margin-bottom: 0;
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+.skeleton-line.button {
+  height: 45px;
+  margin-top: 25px;
+}
+
+/* The pulsing animation for the skeleton */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* --- Interactive Hover Effects --- */
+
+/* Add a smooth transition to all buttons and cards */
+button,
+.poll-card {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Add a "lift" effect to buttons on hover */
+button:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.1); /* Makes the color slightly brighter */
+}
+
+/* Disabled buttons should not have hover effects */
+button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+  filter: none;
+}
+
+/* Add a "lift" effect to poll cards on hover */
+.poll-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the new logo in the app header */
+.header-logo {
+  height: 120px; /* Adjust size as needed */
+}
+
