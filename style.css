@@ -1,11 +1,11 @@
 /* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* --- New Color Palette Based on MP-BBSK Logo --- */
+/* --- Color Palette --- */
 :root {
-  --primary-color: #0053a0; /* Blue from logo */
+  --primary-color: #0053a0;
   --primary-hover: #003d75;
-  --secondary-color: #d40000; /* Red from logo */
+  --secondary-color: #d40000;
   --secondary-hover: #a30000;
   --background-color: #f0f2f5;
   --card-background: #ffffff;
@@ -14,6 +14,20 @@
   --border-color: #ced0d4;
   --success-color: #28a745;
 }
+
+:root[data-theme='dark'] {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --secondary-color: #e63946;
+  --secondary-hover: #b82c38;
+  --background-color: #121212;
+  --card-background: #1e1e1e;
+  --text-color: #e4e6eb;
+  --light-text-color: #b0b3b8;
+  --border-color: #3a3b3c;
+  --success-color: #28a745;
+}
+
 
 body {
   font-family: 'Poppins', sans-serif;
@@ -26,14 +40,18 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* --- Logo Style --- */
+/* --- Logo Styles --- */
 .logo {
   display: block;
   width: 100px;
   height: 100px;
   margin: 0 auto 20px auto;
+}
+.header-logo {
+  height: 120px;
 }
 
 /* --- Main Containers --- */
@@ -52,13 +70,7 @@ body {
   display: none;
 }
 
-/* --- Authentication Form --- */
-#auth-container h2 {
-  text-align: center;
-  margin-top: 0;
-  font-weight: 600;
-  color: var(--text-color);
-}
+/* --- Auth Forms --- */
 #auth-container p {
   text-align: center;
   margin-bottom: 25px;
@@ -82,12 +94,36 @@ body {
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
-.button-group {
+.auth-nav {
   display: flex;
-  gap: 15px;
-  margin-top: 25px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 25px;
+}
+
+.auth-nav button {
+  flex: 1;
+  background-color: transparent;
+  color: var(--light-text-color);
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 15px 5px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.auth-nav button.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  font-weight: 600;
+}
+
+.full-width {
+  width: 100%;
 }
 
 /* --- Buttons --- */
@@ -99,30 +135,21 @@ button {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 button:active {
   transform: scale(0.98);
 }
 
-#login-button {
+#login-button, #signup-button {
   background-color: var(--primary-color);
   color: white;
-}
-
-#login-button:hover {
-  background-color: var(--primary-hover);
 }
 
 button.secondary, #logout-button {
   background-color: var(--secondary-color);
   color: white;
 }
-button.secondary:hover, #logout-button:hover {
-  background-color: var(--secondary-hover);
-}
-
 
 /* --- App View --- */
 .app-header {
@@ -134,22 +161,29 @@ button.secondary:hover, #logout-button:hover {
   margin-bottom: 10px;
 }
 
-.app-header h1 {
-  margin: 0;
-  font-size: 24px;
-  color: var(--primary-color);
-}
-
 .user-info {
   display: flex;
   align-items: center;
   gap: 15px;
 }
-.user-info span {
-  font-weight: 500;
+
+#user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.3;
 }
 
-/* --- New App Navigation Styles --- */
+.user-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.user-email {
+  font-size: 12px;
+  color: var(--light-text-color);
+}
+
 .app-nav {
   display: flex;
   gap: 10px;
@@ -182,10 +216,10 @@ button.secondary:hover, #logout-button:hover {
 }
 
 .poll-card, .result-card {
-  background-color: #f7f8fa;
+  background-color: var(--background-color);
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--border-color);
 }
 
 .poll-card h3, .result-card h3 {
@@ -214,46 +248,76 @@ button.secondary:hover, #logout-button:hover {
   flex-grow: 1;
 }
 
-.poll-card button, .result-card button {
+.poll-card button {
   width: 100%;
   background-color: var(--success-color);
   color: white;
 }
 
 .poll-card button:disabled {
-  background-color: #ccc;
+  background-color: #555;
+  color: #999;
   cursor: not-allowed;
 }
 
 /* --- Results Card Styles --- */
 .result-card .result-item {
+  margin-bottom: 15px;
+}
+.result-card .option-name {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+.result-bar-container {
+  position: relative;
+  height: 35px;
+  width: 100%;
+  background-color: #e9ecef;
+  border-radius: 8px;
+}
+.result-bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  transition: width 0.8s ease-in-out;
+}
+.result-bar-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  margin-bottom: 8px;
-}
-
-.result-card .winner {
-  background-color: #d4edda; /* A light green for the winner */
-  border-color: #155724;
+  padding: 0 12px;
+  box-sizing: border-box;
   font-weight: 600;
+  font-size: 14px;
 }
-
-.result-card .winner .option-name,
-.result-card .winner .vote-count {
-  color: #155724;
+.result-bar-text .option-label {
+  color: var(--text-color);
 }
-
-.result-card .winner::before {
+.result-bar-text .vote-label {
+  color: var(--light-text-color);
+}
+.result-item.winner .option-name {
+  font-weight: 700;
+  color: var(--success-color);
+}
+.result-item.winner .option-name::before {
   content: '🏆';
-  margin-right: 10px;
-  font-size: 1.2em;
+  margin-right: 8px;
 }
-
+.result-item.winner .result-bar-fill {
+  background-color: var(--success-color);
+}
+.result-item.winner .result-bar-text .option-label,
+.result-item.winner .result-bar-text .vote-label {
+  color: white;
+}
 .result-card .final-winner-announcement {
   text-align: center;
   font-size: 1.1em;
@@ -264,9 +328,14 @@ button.secondary:hover, #logout-button:hover {
   color: white;
   border-radius: 6px;
 }
+:root[data-theme='dark'] .result-bar-container {
+  background-color: #3a3b3c;
+}
+:root[data-theme='dark'] .result-item.winner .option-name {
+  color: #70e094;
+}
 
-
-/* --- New Welcome Animation --- */
+/* --- Welcome Animation --- */
 @keyframes fadeInOut {
   0% { opacity: 0; transform: scale(0.9); }
   20% { opacity: 1; transform: scale(1.05); }
@@ -291,102 +360,30 @@ footer {
   font-size: 14px;
 }
 
-/* --- Responsive Design --- */
-@media (max-width: 600px) {
-  body { padding: 10px; }
-  .main-container { padding: 20px; }
-  .app-header { flex-direction: column; gap: 15px; }
-  .button-group { flex-direction: column; }
-}
-/* --- New Auth Form Tab Styles --- */
-.auth-nav {
-  display: flex;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 25px;
-}
-
-.auth-nav button {
-  flex: 1;
-  background-color: transparent;
-  color: var(--light-text-color);
-  border: none;
-  border-bottom: 3px solid transparent;
-  border-radius: 0;
-  padding: 15px 5px;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.auth-nav button.active {
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color);
-  font-weight: 600;
-}
-
-/* Utility class for full-width buttons in auth forms */
-.full-width {
-  width: 100%;
-  margin-top: 10px;
-}
-
-/* --- Styles for the new user display in the header --- */
-#user-details {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* Aligns text to the right */
-  line-height: 1.3;
-}
-
-.user-name {
-  font-weight: 600; /* Make the name bold */
-  font-size: 16px;
-  color: var(--text-color);
-}
-
-.user-email {
-  font-size: 12px; /* Smaller font for the email */
-  color: var(--light-text-color);
-}
 /* --- Toast Notification Styles --- */
 #toast-container {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
 }
-
 .toast {
   background-color: var(--card-background);
-  color: var(--text-color);
   padding: 15px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  gap: 10px;
   border-left: 5px solid;
   transform: translateX(120%);
   transition: transform 0.5s ease-in-out;
 }
-
 .toast.show {
   transform: translateX(0);
 }
-
 .toast.success {
   border-left-color: var(--success-color);
 }
-
 .toast.error {
   border-left-color: var(--secondary-color);
-}
-
-.toast-message {
-  font-weight: 500;
 }
 
 /* --- Skeleton Loader Styles --- */
@@ -395,70 +392,92 @@ footer {
   padding: 20px;
   border-radius: 8px;
   border: 1px solid var(--border-color);
-  margin-bottom: 25px; /* Matches gap in your containers */
+  margin-bottom: 25px;
 }
-
 .skeleton-line {
   height: 20px;
-  background-color: #e9ecef; /* A light grey for the placeholder */
+  background-color: #e9ecef;
   border-radius: 4px;
   margin-bottom: 15px;
   animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
-
-.skeleton-line:last-child {
-  margin-bottom: 0;
-}
-
-.skeleton-line.short {
-  width: 60%;
-}
-
-.skeleton-line.button {
-  height: 45px;
-  margin-top: 25px;
-}
-
-/* The pulsing animation for the skeleton */
+.skeleton-line:last-child { margin-bottom: 0; }
+.skeleton-line.short { width: 60%; }
+.skeleton-line.button { height: 45px; margin-top: 25px; }
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 /* --- Interactive Hover Effects --- */
-
-/* Add a smooth transition to all buttons and cards */
-button,
-.poll-card {
+button, .poll-card {
   transition: all 0.2s ease-in-out;
 }
-
-/* Add a "lift" effect to buttons on hover */
 button:not(:disabled):hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  filter: brightness(1.1); /* Makes the color slightly brighter */
+  filter: brightness(1.1);
 }
-
-/* Disabled buttons should not have hover effects */
-button:disabled:hover {
-  transform: none;
-  box-shadow: none;
-  filter: none;
-}
-
-/* Add a "lift" effect to poll cards on hover */
 .poll-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Style for the new logo in the app header */
-.header-logo {
-  height: 120px; /* Adjust size as needed */
+/* --- Theme Switcher Styles --- */
+.theme-switcher {
+  margin-left: auto;
+  margin-right: 20px;
+}
+.theme-toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+.theme-toggle-label input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+}
+.slider:before {
+  position: absolute;
+  content: "☀️";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+input:checked + .slider:before {
+  content: "🌙";
+  transform: translateX(24px);
 }
 
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body { padding: 10px; }
+  .main-container { padding: 20px; }
+  .app-header { flex-direction: column; gap: 15px; }
+}

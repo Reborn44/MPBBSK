@@ -4,13 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hlasovanie MP-BBSK</title>
-
   <link rel="stylesheet" href="style.css">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="app.js"></script>
 </head>
@@ -18,12 +15,10 @@
 
 <div id="auth-container" class="main-container">
   <img src="logo.png" alt="Logo MP-BBSK" class="logo">
-
   <nav class="auth-nav">
     <button id="show-login-btn" class="active">Prihlásiť sa</button>
     <button id="show-signup-btn">Zaregistrovať sa</button>
   </nav>
-
   <div id="login-form">
     <div class="form-control">
       <label for="login-email">Email</label>
@@ -32,13 +27,11 @@
     <div class="form-control">
       <label for="login-password">Heslo</label>
       <input type="password" id="login-password" placeholder="••••••••">
-      <p style="text-align: right; margin-top: 10px; font-size: 14px;">
-        <a href="#" id="forgot-password-link">Zabudli ste heslo?</a>
+
       </p>
     </div>
     <button id="login-button" class="full-width">Prihlásiť sa</button>
   </div>
-
   <div id="signup-form" class="hidden">
     <div class="form-control">
       <label for="signup-firstname">Krstné meno</label>
@@ -68,6 +61,12 @@
 <div id="app-container" class="main-container hidden">
   <header class="app-header">
     <img src="whitelogo2.png" alt="Logo MP-BBSK" class="header-logo">
+    <div class="theme-switcher">
+      <label for="theme-toggle" class="theme-toggle-label">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider"></span>
+      </label>
+    </div>
     <div class="user-info">
       <div id="user-details">
         <span id="user-name-display" class="user-name"></span>
@@ -76,12 +75,10 @@
       <button id="logout-button">Odhlásiť sa</button>
     </div>
   </header>
-
   <nav class="app-nav">
     <button id="show-active-polls-btn" class="active">Aktívne hlasovania</button>
     <button id="show-results-btn">Zobraziť výsledky</button>
   </nav>
-
   <main id="polls-container"></main>
   <main id="results-container" class="hidden"></main>
 </div>
@@ -90,6 +87,7 @@
   <p>Hlasovací systém MP-BBSK</p>
 </footer>
 
-  <div id="toast-container"></div>
+<div id="toast-container"></div>
+
 </body>
 </html>
