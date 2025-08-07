@@ -46,8 +46,8 @@ body {
 /* --- Logo Styles --- */
 .logo {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 350px;
+  height: 282px;
   margin: 0 auto 20px auto;
 }
 .header-logo {
@@ -480,4 +480,217 @@ input:checked + .slider:before {
   body { padding: 10px; }
   .main-container { padding: 20px; }
   .app-header { flex-direction: column; gap: 15px; }
+}
+
+/* --- NEW: Fullscreen Results Modal --- */
+.result-card-footer {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #003366;
+}
+/* This new rule correctly hides the modal */
+.fullscreen-overlay.hidden {
+  display: none;
+}
+
+.fullscreen-content {
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+.fullscreen-header {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  padding-bottom: 20px;
+}
+
+.fullscreen-header > div {
+  flex: 1;
+}
+
+.fullscreen-header span {
+  display: block;
+  font-weight: bold;
+}
+
+.fullscreen-header span:first-child {
+  font-size: 1.5em;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+.fullscreen-header span:last-child {
+  font-size: 3.5em;
+  margin-top: 10px;
+}
+
+.fullscreen-main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#fs-status {
+  font-size: 5em;
+  font-weight: bold;
+  letter-spacing: 5px;
+  text-align: center;
+}
+
+#fs-close-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid white;
+  color: white;
+  flex: none;
+}
+#fs-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 600px) {
+  .fullscreen-header span:first-child { font-size: 1em; }
+  .fullscreen-header span:last-child { font-size: 2em; }
+  #fs-status { font-size: 2.5em; }
+}
+/* --- Fullscreen Results Modal --- */
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #003366; /* Default Blue */
+}
+.fullscreen-overlay.rejected {
+  background-color: #d40000; /* Red for rejected votes */
+}
+.fullscreen-overlay.hidden {
+  display: none;
+}
+.result-card-footer {
+  margin-top: 20px;
+  text-align: right;
+}
+.fullscreen-content {
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+.fullscreen-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 15px;
+  font-size: 1.7em;
+  font-weight: bold;
+}
+.top-bar-left, .top-bar-right {
+  flex: 1;
+  display: flex; /* Add flex display */
+  align-items: center; /* This vertically centers the content */
+}
+.top-bar-right {
+  justify-content: flex-end; /* This keeps it aligned to the right */
+  text-align: right;
+}
+.top-bar-center {
+  flex: 2;
+  display: flex;
+  flex-direction: row; /* This is the main change */
+  align-items: center;
+  justify-content: center; /* This ensures it stays centered */
+  gap: 15px; /* Adds a nice space between the logo and text */
+  text-align: left; /* Aligns the text to the left */
+}
+
+.fullscreen-logo {
+  height: 100px;
+  margin-bottom: 5px;
+}
+.fullscreen-header {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 15px 0;
+}
+.fullscreen-header > div {
+  flex: 1;
+}
+.fullscreen-header span {
+  display: block;
+  font-weight: bold;
+}
+.fullscreen-header span:first-child {
+  font-size: 1.5em;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+.fullscreen-header span:last-child {
+  font-size: 3.5em;
+  margin-top: 10px;
+}
+.fullscreen-main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#fs-status {
+  font-size: 5em;
+  font-weight: bold;
+  letter-spacing: 5px;
+  text-align: center;
+}
+#fs-close-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid white;
+  color: white;
+  flex: none;
+}
+#fs-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+@media (max-width: 600px) {
+  .fullscreen-header span:first-child { font-size: 1em; }
+  .fullscreen-header span:last-child { font-size: 2em; }
+  #fs-status { font-size: 2.5em; }
 }

@@ -27,8 +27,17 @@ const welcomeAnimationContainer = document.getElementById('welcome-animation');
 const welcomeMessage = document.getElementById('welcome-message');
 const userNameDisplay = document.getElementById('user-name-display');
 const userEmailDisplay = document.getElementById('user-email-display');
-const forgotPasswordLink = document.getElementById('forgot-password-link');
 const themeToggle = document.getElementById('theme-toggle');
+const fullscreenModal = document.getElementById('fullscreen-modal');
+const fsPresent = document.getElementById('fs-present');
+const fsFor = document.getElementById('fs-for');
+const fsAgainst = document.getElementById('fs-against');
+const fsAbstained = document.getElementById('fs-abstained');
+const fsNotVoted = document.getElementById('fs-not-voted');
+const fsStatus = document.getElementById('fs-status');
+const fsCloseBtn = document.getElementById('fs-close-btn');
+const fsDate = document.getElementById('fs-date');
+const fsTime = document.getElementById('fs-time');
 
 let voteSubscription = null;
 
@@ -55,14 +64,16 @@ loginButton.addEventListener('click', async () => {
     });
     if (error)
         showToast('Chyba pri prihlasovaní: ' + error.message, 'error');
-    else
-        checkUser();
 });
 
 signupButton.addEventListener('click', async () => {
+    const nickname = document.getElementById('signup-nickname').value.trim();
     const fullName = `${signupFirstnameInput.value.trim()} ${signupLastnameInput.value.trim()}`;
     if (!signupFirstnameInput.value || !signupLastnameInput.value) {
         return showToast('Prosím, zadajte vaše meno a priezvisko.', 'error');
+    }
+    if (!nickname) {
+        return showToast('Prosím, zadajte prezývku.', 'error');
     }
     if (signupPasswordInput.value.length < 6) {
         return showToast('Heslo musí mať aspoň 6 znakov.', 'error');
@@ -70,12 +81,13 @@ signupButton.addEventListener('click', async () => {
     const { error } = await supabaseClient.auth.signUp({
         email: signupEmailInput.value,
         password: signupPasswordInput.value,
-        options: { data: { full_name: fullName } }
+        options: { data: { full_name: fullName, nickname: nickname } }
     });
-    if (error)
+    if (error) {
         showToast('Chyba pri registrácii: ' + error.message, 'error');
-    else
+    } else {
         showToast('Registrácia úspešná! Prosím, potvrďte svoj email.');
+    }
 });
 
 logoutButton.addEventListener('click', () => {
@@ -84,13 +96,9 @@ logoutButton.addEventListener('click', () => {
         voteSubscription = null;
     }
     supabaseClient.auth.signOut();
-    checkUser();
 });
 
-// We will add the forgot password link listener back later if you want
-// forgotPasswordLink.addEventListener('click', (e) => { ... });
-
-themeToggle.addEventListener('change', () => {
+themeToggle.addEventListener('click', () => {
     if (themeToggle.checked) {
         setTheme('dark');
     } else {
@@ -116,6 +124,10 @@ showResultsBtn.addEventListener('click', () => {
     fetchResults();
 });
 
+fsCloseBtn.addEventListener('click', () => {
+    fullscreenModal.classList.add('hidden');
+});
+
 // =================================================================================
 // UI Functions
 // =================================================================================
@@ -127,9 +139,7 @@ const showToast = (message, type = 'success') => {
     toast.className = `toast ${type}`;
     toast.innerHTML = `<span class="toast-message">${message}</span>`;
     toastContainer.appendChild(toast);
-    setTimeout(() => {
-        toast.classList.add('show');
-    }, 100);
+    setTimeout(() => toast.classList.add('show'), 100);
     setTimeout(() => {
         toast.classList.remove('show');
         toast.addEventListener('transitionend', () => toast.remove());
@@ -154,20 +164,69 @@ const renderSkeletonLoader = (container) => {
 const setTheme = (theme) => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    if (themeToggle) {
-        themeToggle.checked = theme === 'dark';
-    }
+    if (themeToggle) themeToggle.checked = theme === 'dark';
 };
 
 const loadTheme = () => {
     const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (savedTheme) {
         setTheme(savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    } else if (systemPrefersDark) {
         setTheme('dark');
     } else {
         setTheme('light');
     }
+};
+
+const showFullscreenResults = async (poll) => {
+    const results = poll.results || {};
+    let totalVotesCast = 0;
+    const fullscreenContent = document.querySelector('.fullscreen-content');
+    for (const option in results) {
+        totalVotesCast += results[option];
+    }
+
+    const votesFor = results['Za'] || 0;
+    const votesAgainst = results['Proti'] || 0;
+    const votesAbstained = results['Zdržiavam sa'] || 0;
+
+    const isFormalVote = poll.options.includes('Za') && poll.options.includes('Proti');
+
+    const { data: profiles, error, count } = await supabaseClient.from('profiles').select('*', { count: 'exact', head: true });
+    if (error) {
+        showToast('Nepodarilo sa načítať počet poslancov.', 'error');
+        return;
+    }
+    const totalEligibleVoters = count;
+    const notVoted = totalEligibleVoters - totalVotesCast;
+
+    const now = new Date();
+    fsDate.textContent = now.toLocaleDateString('sk-SK');
+    fsTime.textContent = now.toLocaleTimeString('sk-SK', { hour: '2-digit', minute: '2-digit' });
+
+    fsPresent.textContent = totalVotesCast;
+    fsFor.textContent = votesFor;
+    fsAgainst.textContent = votesAgainst;
+    fsAbstained.textContent = votesAbstained;
+    fsNotVoted.textContent = notVoted < 0 ? 0 : notVoted;
+
+    if (isFormalVote) {
+        if (votesFor > votesAgainst) {
+            fsStatus.textContent = 'NÁVRH SCHVÁLENÝ';
+            fsStatus.style.color = 'white';
+            fullscreenContent.style.backgroundColor = '#003366';
+        } else {
+            fsStatus.textContent = 'NÁVRH NESCHVÁLENÝ';
+            fsStatus.style.color = 'white';
+            fullscreenContent.style.backgroundColor = '#d40000';
+        }
+    } else {
+        fsStatus.textContent = 'HLASOVANIE UKONČENÉ';
+        fsStatus.style.color = 'white';
+    }
+
+    fullscreenModal.classList.remove('hidden');
 };
 
 // =================================================================================
@@ -177,7 +236,7 @@ const loadTheme = () => {
 const subscribeToVotes = () => {
     if (voteSubscription) return;
     voteSubscription = supabaseClient.channel('public:votes')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'votes' }, payload => {
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'votes' }, () => {
             if (!pollsContainer.classList.contains('hidden')) {
                 fetchPolls();
             }
@@ -185,34 +244,27 @@ const subscribeToVotes = () => {
         .subscribe();
 };
 
-const checkUser = async () => {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (user) {
-        authContainer.classList.add('hidden');
-        appContainer.classList.add('hidden');
-        const welcomeName = user.user_metadata.full_name || user.email;
-        welcomeMessage.innerText = `Vitaj, ${welcomeName}`;
-        welcomeAnimationContainer.classList.remove('hidden');
-        subscribeToVotes();
-        setTimeout(() => {
-            welcomeAnimationContainer.classList.add('hidden');
-            appContainer.classList.remove('hidden');
-            const headerDisplayName = user.user_metadata.full_name || user.email.split('@')[0];
-            userNameDisplay.textContent = headerDisplayName;
-            userEmailDisplay.textContent = user.email;
-            showActivePollsBtn.click();
-        }, 3000);
-    } else {
-        authContainer.classList.remove('hidden');
-        appContainer.classList.add('hidden');
+const handleUserLoggedIn = (user) => {
+    authContainer.classList.add('hidden');
+    appContainer.classList.add('hidden');
+    const welcomeName = user.user_metadata.full_name || user.email;
+    welcomeMessage.innerText = `Vitaj, ${welcomeName}`;
+    welcomeAnimationContainer.classList.remove('hidden');
+    subscribeToVotes();
+    setTimeout(() => {
         welcomeAnimationContainer.classList.add('hidden');
-        loginEmailInput.value = '';
-        loginPasswordInput.value = '';
-        signupFirstnameInput.value = '';
-        signupLastnameInput.value = '';
-        signupEmailInput.value = '';
-        signupPasswordInput.value = '';
-    }
+        appContainer.classList.remove('hidden');
+        const headerDisplayName = user.user_metadata.full_name || user.user_metadata.nickname || user.email.split('@')[0];
+        userNameDisplay.textContent = headerDisplayName;
+        userEmailDisplay.textContent = user.email;
+        showActivePollsBtn.click();
+    }, 3000);
+};
+
+const handleUserLoggedOut = () => {
+    authContainer.classList.remove('hidden');
+    appContainer.classList.add('hidden');
+    welcomeAnimationContainer.classList.add('hidden');
 };
 
 const fetchPolls = async () => {
@@ -319,8 +371,16 @@ const fetchResults = async () => {
             } else {
                 winnerAnnouncement = `<div class="final-winner-announcement">V tomto hlasovaní neboli odovzdané žiadne hlasy.</div>`;
             }
-            resultCard.innerHTML = `<h3>${poll.question}</h3> ${resultsHTML} ${winnerAnnouncement}`;
+            const footerHTML = `
+                <div class="result-card-footer">
+                    <button id="generate-fs-btn-${poll.poll_id}">Generovať obrazovku</button>
+                </div>
+            `;
+            resultCard.innerHTML = `<h3>${poll.question}</h3> ${resultsHTML} ${winnerAnnouncement} ${footerHTML}`;
             resultsContainer.appendChild(resultCard);
+            document.getElementById(`generate-fs-btn-${poll.poll_id}`).addEventListener('click', () => {
+                showFullscreenResults(poll);
+            });
         }
     } catch (error) {
         console.error('Error fetching results:', error);
@@ -350,6 +410,13 @@ const castVote = async (pollId, selectedOption, user) => {
     }
 };
 
-// --- INITIAL LOAD ---
+// --- INITIAL LOAD & AUTH STATE CHANGE ---
 loadTheme();
-checkUser();
+
+supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (session && session.user) {
+        handleUserLoggedIn(session.user);
+    } else {
+        handleUserLoggedOut();
+    }
+});

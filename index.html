@@ -14,7 +14,7 @@
 <body>
 
 <div id="auth-container" class="main-container">
-  <img src="logo.png" alt="Logo MP-BBSK" class="logo">
+  <img src="whitelogo2.png" alt="Logo MP-BBSK" class="logo">
   <nav class="auth-nav">
     <button id="show-login-btn" class="active">Prihlásiť sa</button>
     <button id="show-signup-btn">Zaregistrovať sa</button>
@@ -49,12 +49,16 @@
       <label for="signup-password">Heslo</label>
       <input type="password" id="signup-password" placeholder="Minimálne 6 znakov">
     </div>
+    <div class="form-control">
+      <label for="signup-nickname">Heslo</label>
+      <input type="password" id="signup-nickname" placeholder="Zadajte znovu heslo. Minimálne 6 znakov">
+    </div>
     <button id="signup-button" class="full-width">Zaregistrovať sa</button>
   </div>
 </div>
 
 <div id="welcome-animation" class="main-container hidden">
-  <img src="logo.png" alt="Logo MP-BBSK" class="logo">
+  <img src="whitelogo2.png" alt="Logo MP-BBSK" class="logo">
   <h2 id="welcome-message"></h2>
 </div>
 
@@ -88,6 +92,36 @@
 </footer>
 
 <div id="toast-container"></div>
+
+<div id="fullscreen-modal" class="fullscreen-overlay hidden">
+  <div class="fullscreen-content">
+    <div class="fullscreen-top-bar">
+      <div class="top-bar-left">
+        <span id="fs-date"></span>
+      </div>
+      <div class="top-bar-center">
+        <img src="whitelogo2.png" alt="Logo MP-BBSK" class="fullscreen-logo">
+        <span>Mládežnícky parlament <br> Banskobystrického samosprávneho kraja</span>
+      </div>
+      <div class="top-bar-right">
+        <span id="fs-time"></span>
+      </div>
+    </div>
+    <div class="fullscreen-header">
+      <div><span>PRÍTOMNÍ</span><span id="fs-present">0</span></div>
+      <div><span>ZA</span><span id="fs-for">0</span></div>
+      <div><span>PROTI</span><span id="fs-against">0</span></div>
+      <div><span>ZDRŽALO SA</span><span id="fs-abstained">0</span></div>
+      <div><span>NEHLASOVALO</span><span id="fs-not-voted">0</span></div>
+    </div>
+    <div class="fullscreen-main">
+      <h1 id="fs-status"></h1>
+    </div>
+    <div class="fullscreen-footer">
+      <button id="fs-close-btn">Zavrieť</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
