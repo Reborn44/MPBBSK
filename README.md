@@ -1,1 +1,1 @@
-A small student parliament voting website
+The voting website for MPBBSK, a student parliament located in Banska Bystrica Sloakia
