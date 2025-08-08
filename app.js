@@ -224,6 +224,7 @@ const showFullscreenResults = async (poll) => {
     } else {
         fsStatus.textContent = 'HLASOVANIE UKONČENÉ';
         fsStatus.style.color = 'white';
+        fullscreenContent.style.backgroundColor = '#808080';
     }
 
     fullscreenModal.classList.remove('hidden');
