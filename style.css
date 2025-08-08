@@ -617,7 +617,7 @@ input:checked + .slider:before {
   align-items: center;
   width: 100%;
   padding-bottom: 15px;
-  font-size: 1.7em;
+  font-size: 1.5em;
   font-weight: bold;
 }
 .top-bar-left, .top-bar-right {
@@ -640,7 +640,7 @@ input:checked + .slider:before {
 }
 
 .fullscreen-logo {
-  height: 100px;
+  height: 90px;
   margin-bottom: 5px;
 }
 .fullscreen-header {

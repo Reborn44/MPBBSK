@@ -227,7 +227,7 @@ const showFullscreenResults = async (poll) => {
     } else {
         fsStatus.textContent = 'HLASOVANIE UKONČENÉ';
         fsStatus.style.color = 'white';
-        fullscreenContent.style.backgroundColor = '#7baded';
+        fullscreenContent.style.backgroundColor = '#003366';
         fullscreenLogo.src = 'whitelogo2.png'; // Set to default logo
     }
 
