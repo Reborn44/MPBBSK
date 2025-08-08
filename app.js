@@ -38,6 +38,7 @@ const fsStatus = document.getElementById('fs-status');
 const fsCloseBtn = document.getElementById('fs-close-btn');
 const fsDate = document.getElementById('fs-date');
 const fsTime = document.getElementById('fs-time');
+const fullscreenLogo = document.querySelector('.fullscreen-logo');
 
 let voteSubscription = null;
 
@@ -216,15 +217,18 @@ const showFullscreenResults = async (poll) => {
             fsStatus.textContent = 'NÁVRH SCHVÁLENÝ';
             fsStatus.style.color = 'white';
             fullscreenContent.style.backgroundColor = '#003366';
+            fullscreenLogo.src = 'img.png'; // Set to BLUE logo
         } else {
             fsStatus.textContent = 'NÁVRH NESCHVÁLENÝ';
             fsStatus.style.color = 'white';
             fullscreenContent.style.backgroundColor = '#d40000';
+            fullscreenLogo.src = 'img_1.png'; // Set to RED logo
         }
     } else {
         fsStatus.textContent = 'HLASOVANIE UKONČENÉ';
         fsStatus.style.color = 'white';
-        fullscreenContent.style.backgroundColor = '#808080';
+        fullscreenContent.style.backgroundColor = '#7baded';
+        fullscreenLogo.src = 'whitelogo2.png'; // Set to default logo
     }
 
     fullscreenModal.classList.remove('hidden');
