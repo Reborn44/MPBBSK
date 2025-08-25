@@ -107,7 +107,23 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
+showActivePollsBtn.addEventListener('click', () => {
+    pollsContainer.classList.remove('hidden');
+    resultsContainer.classList.add('hidden');
+    showActivePollsBtn.classList.add('active');
+    showResultsBtn.classList.remove('active');
+    resultsContainer.innerHTML = '';
+    fetchPolls();
+});
 
+showResultsBtn.addEventListener('click', () => {
+    pollsContainer.classList.add('hidden');
+    resultsContainer.classList.remove('hidden');
+    showActivePollsBtn.classList.remove('active');
+    showResultsBtn.classList.add('active');
+    pollsContainer.innerHTML = '';
+    fetchResults();
+});
 
 fsCloseBtn.addEventListener('click', () => {
     fullscreenModal.classList.add('hidden');
@@ -163,26 +179,7 @@ const loadTheme = () => {
         setTheme('light');
     }
 };
-const formatTimeRemaining = (endDate) => {
-    if (!endDate) return null;
-    const now = new Date();
-    const end = new Date(endDate);
-    const diff = end - now;
 
-    if (diff <= 0) return 'Hlasovanie ukončené';
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
-
-    let parts = [];
-    if (days > 0) parts.push(`${days}d`);
-    if (hours > 0) parts.push(`${hours}h`);
-    if (minutes > 0 && days === 0) parts.push(`${minutes}m`);
-
-    if (parts.length === 0) return 'Koniec za menej ako minútu';
-    return `Koniec za: ${parts.join(' ')}`;
-};
 const showFullscreenResults = async (poll) => {
     const results = poll.results || {};
     let totalVotesCast = 0;
@@ -262,9 +259,10 @@ const handleUserLoggedIn = (user) => {
     setTimeout(() => {
         welcomeAnimationContainer.classList.add('hidden');
         appContainer.classList.remove('hidden');
-        userNameDisplay.textContent = user.user_metadata.full_name || user.email.split('@')[0];
+        const headerDisplayName = user.user_metadata.full_name || user.user_metadata.nickname || user.email.split('@')[0];
+        userNameDisplay.textContent = headerDisplayName;
         userEmailDisplay.textContent = user.email;
-        fetchAndDisplayPolls(); // This is the new master function
+        showActivePollsBtn.click();
     }, 3000);
 };
 
@@ -274,127 +272,124 @@ const handleUserLoggedOut = () => {
     welcomeAnimationContainer.classList.add('hidden');
 };
 
-const fetchAndDisplayPolls = async () => {
+const fetchPolls = async () => {
     renderSkeletonLoader(pollsContainer);
-    renderSkeletonLoader(resultsContainer);
-
     try {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const { data: polls, error: pollsError } = await supabaseClient.from('polls').select('*').eq('is_active', true);
+        if (pollsError) throw pollsError;
         const { data: { user } } = await supabaseClient.auth.getUser();
         if (!user) return;
-
-        const [pollsResponse, allVotesResponse] = await Promise.all([
-            supabaseClient.from('polls').select('*').order('is_active', { ascending: false }).order('created_at', { ascending: false }),
-            supabaseClient.rpc('get_poll_results')
-        ]);
-
-        if (pollsResponse.error) throw pollsResponse.error;
-        if (allVotesResponse.error) throw allVotesResponse.error;
-
-        const allPolls = pollsResponse.data;
-        const allResults = allVotesResponse.data;
-
         const { data: userVotes, error: userVotesError } = await supabaseClient.from('votes').select('poll_id').eq('user_id', user.id);
         if (userVotesError) throw userVotesError;
         const userVotedPollIds = new Set(userVotes.map(v => v.poll_id));
-
-        // Clear containers before rendering
         pollsContainer.innerHTML = '';
-        resultsContainer.innerHTML = '';
-
-        const activePolls = [];
-        const finishedPolls = [];
-
-        for (const poll of allPolls) {
-            const timeRemaining = formatTimeRemaining(poll.end_date);
-            if (poll.is_active && timeRemaining !== 'Hlasovanie ukončené') {
-                activePolls.push(poll);
-            } else {
-                const pollResult = allResults.find(r => r.poll_id === poll.id);
-                poll.results = pollResult ? pollResult.results : {};
-                finishedPolls.push(poll);
-            }
-        }
-
-        // --- Render Active Polls ---
-        if (activePolls.length === 0) {
+        if (polls.length === 0) {
             pollsContainer.innerHTML = '<p>Momentálne nie sú k dispozícii žiadne aktívne hlasovania.</p>';
-        } else {
-            for (const poll of activePolls) {
-                const hasUserVoted = userVotedPollIds.has(poll.id);
-                const timeRemaining = formatTimeRemaining(poll.end_date);
-                const pollCard = document.createElement('div');
-                pollCard.className = 'poll-card';
-                const optionsHTML = poll.options.map(option => `
-                    <div class="option"><input type="radio" id="option-${poll.id}-${option}" name="poll-${poll.id}" value="${option}" ${hasUserVoted ? 'disabled' : ''}><label for="option-${poll.id}-${option}" class="option-label">${option}</label></div>
-                `).join('');
-                pollCard.innerHTML = `
-                    ${timeRemaining ? `<div class="countdown-timer">${timeRemaining}</div>` : ''}
-                    <h3>${poll.question}</h3>
-                    <form><div class="options">${optionsHTML}</div><button type="submit" ${hasUserVoted || timeRemaining === 'Hlasovanie ukončené' ? 'disabled' : ''}>${hasUserVoted ? 'Už ste hlasovali' : 'Odoslať môj hlas'}</button></form>
-                `;
-                pollsContainer.appendChild(pollCard);
-                if (!hasUserVoted) {
-                    pollCard.querySelector('form').addEventListener('submit', async (e) => {
-                        e.preventDefault();
-                        const selectedOption = pollCard.querySelector(`input[name="poll-${poll.id}"]:checked`);
-                        if (!selectedOption) return showToast('Prosím, vyberte jednu z možností.', 'error');
-                        await castVote(poll.id, selectedOption.value, user);
-                    });
-                }
-            }
+            return;
         }
-
-        // --- Render Finished Polls ---
-        if (finishedPolls.length === 0) {
-            resultsContainer.innerHTML = '<p>Nie sú k dispozícii žiadne výsledky z ukončených hlasovaní.</p>';
-        } else {
-            for (const poll of finishedPolls) {
-                const results = poll.results || {};
-                let totalVotes = 0;
-                for(const option in results) totalVotes += results[option];
-                let maxVotes = 0;
-                for (const option of poll.options) maxVotes = Math.max(maxVotes, results[option] || 0);
-                const winners = (maxVotes > 0) ? poll.options.filter(option => results[option] === maxVotes) : [];
-
-                const resultCard = document.createElement('div');
-                resultCard.className = 'result-card';
-                let resultsHTML = poll.options.map(option => {
-                    const voteCount = results[option] || 0;
-                    const percentage = totalVotes > 0 ? (voteCount / totalVotes) * 100 : 0;
-                    const isWinner = winners.includes(option);
-                    return `
-                        <div class="result-item ${isWinner ? 'winner' : ''}">
-                            <div class="result-bar-container">
-                                <div class="result-bar-fill" style="width: ${percentage}%;"></div>
-                                <div class="result-bar-text"><span class="option-label">${option}</span><span class="vote-label">${voteCount} hlasov</span></div>
-                            </div>
-                        </div>`;
-                }).join('');
-                let winnerAnnouncement = '';
-                if (winners.length > 1) winnerAnnouncement = `<div class="final-winner-announcement">Hlasovanie skončilo nerozhodne medzi: ${winners.join(', ')}</div>`;
-                else if (winners.length === 1) winnerAnnouncement = `<div class="final-winner-announcement">Víťaz: ${winners[0]}</div>`;
-                else winnerAnnouncement = `<div class="final-winner-announcement">V tomto hlasovaní neboli odovzdané žiadne hlasy.</div>`;
-
-                resultCard.innerHTML = `
-                    <div class="result-card-header">
-                        <h3>${poll.question}</h3>
-                        <button id="generate-fs-btn-${poll.id}" class="fullscreen-btn"></button>
-                    </div>
-                    ${resultsHTML}
-                    ${winnerAnnouncement}
-                `;
-                resultsContainer.appendChild(resultCard);
-
-                // Add the event listener for the new button
-                document.getElementById(`generate-fs-btn-${poll.id}`).addEventListener('click', () => {
-                    showFullscreenResults(poll);
+        for (const poll of polls) {
+            const hasUserVoted = userVotedPollIds.has(poll.id);
+            const pollCard = document.createElement('div');
+            pollCard.className = 'poll-card';
+            const optionsHTML = poll.options.map(option => `
+                <div class="option">
+                    <input type="radio" id="option-${poll.id}-${option}" name="poll-${poll.id}" value="${option}" ${hasUserVoted ? 'disabled' : ''}>
+                    <label for="option-${poll.id}-${option}" class="option-label">${option}</label>
+                </div>
+            `).join('');
+            pollCard.innerHTML = `
+                <h3>${poll.question}</h3>
+                <form>
+                    <div class="options">${optionsHTML}</div>
+                    <button type="submit" ${hasUserVoted ? 'disabled' : ''}>${hasUserVoted ? 'Už ste hlasovali' : 'Odoslať môj hlas'}</button>
+                </form>
+            `;
+            pollsContainer.appendChild(pollCard);
+            if (!hasUserVoted) {
+                pollCard.querySelector('form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const selectedOption = pollCard.querySelector(`input[name="poll-${poll.id}"]:checked`);
+                    if (!selectedOption) {
+                        showToast('Prosím, vyberte jednu z možností.', 'error');
+                        return;
+                    }
+                    await castVote(poll.id, selectedOption.value, user);
                 });
             }
         }
     } catch (error) {
-        console.error('Error fetching data:', error);
-        pollsContainer.innerHTML = '<p>Chyba pri načítaní hlasovaní.</p>';
-        resultsContainer.innerHTML = '<p>Chyba pri načítaní výsledkov.</p>';
+        console.error('Error fetching polls:', error);
+        pollsContainer.innerHTML = '<p>Ľutujeme, pri načítaní hlasovaní sa vyskytla chyba.</p>';
+    }
+};
+
+const fetchResults = async () => {
+    renderSkeletonLoader(resultsContainer);
+    try {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const { data: polls, error } = await supabaseClient.rpc('get_poll_results');
+        if (error) throw error;
+        resultsContainer.innerHTML = '';
+        if (polls.length === 0) {
+            resultsContainer.innerHTML = '<p>Nie sú k dispozícii žiadne výsledky z ukončených hlasovaní.</p>';
+            return;
+        }
+        for (const poll of polls) {
+            const results = poll.results || {};
+            let totalVotes = 0;
+            let maxVotes = 0;
+            for (const option of poll.options) {
+                const voteCount = results[option] || 0;
+                totalVotes += voteCount;
+                if (voteCount > maxVotes) maxVotes = voteCount;
+            }
+            const winners = [];
+            if (maxVotes > 0) {
+                for (const option of poll.options) {
+                    if ((results[option] || 0) === maxVotes) winners.push(option);
+                }
+            }
+            const resultCard = document.createElement('div');
+            resultCard.className = 'result-card';
+            let resultsHTML = poll.options.map(option => {
+                const voteCount = results[option] || 0;
+                const percentage = totalVotes > 0 ? (voteCount / totalVotes) * 100 : 0;
+                const isWinner = winners.includes(option);
+                return `
+                    <div class="result-item ${isWinner ? 'winner' : ''}">
+                        <div class="result-bar-container">
+                            <div class="result-bar-fill" style="width: ${percentage}%;"></div>
+                            <div class="result-bar-text">
+                                <span class="option-label">${option}</span>
+                                <span class="vote-label">${voteCount} hlasov</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            let winnerAnnouncement = '';
+            if (winners.length > 1) {
+                winnerAnnouncement = `<div class="final-winner-announcement">Hlasovanie skončilo nerozhodne medzi: ${winners.join(', ')}</div>`;
+            } else if (winners.length === 1) {
+                winnerAnnouncement = `<div class="final-winner-announcement">Víťaz: ${winners[0]}</div>`;
+            } else {
+                winnerAnnouncement = `<div class="final-winner-announcement">V tomto hlasovaní neboli odovzdané žiadne hlasy.</div>`;
+            }
+            const footerHTML = `
+                <div class="result-card-footer">
+                    <button id="generate-fs-btn-${poll.poll_id}">Generovať obrazovku</button>
+                </div>
+            `;
+            resultCard.innerHTML = `<h3>${poll.question}</h3> ${resultsHTML} ${winnerAnnouncement} ${footerHTML}`;
+            resultsContainer.appendChild(resultCard);
+            document.getElementById(`generate-fs-btn-${poll.poll_id}`).addEventListener('click', () => {
+                showFullscreenResults(poll);
+            });
+        }
+    } catch (error) {
+        console.error('Error fetching results:', error);
+        resultsContainer.innerHTML = '<p>Ľutujeme, pri načítaní výsledkov sa vyskytla chyba.</p>';
     }
 };
 

@@ -722,3 +722,4 @@ input:checked + .slider:before {
     border-color: var(--primary-color);
     color: var(--primary-color);
 }
+
