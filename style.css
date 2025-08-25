@@ -7,11 +7,11 @@
   --primary-hover: #003d75;
   --secondary-color: #d40000;
   --secondary-hover: #a30000;
-  --background-color: #f0f2f5;
+  --background-color: rgba(224, 224, 224, 0.72);
   --card-background: #ffffff;
   --text-color: #1c1e21;
-  --light-text-color: #606770;
-  --border-color: #ced0d4;
+  --light-text-color: #1e1a1a;
+  --border-color: #8d8d8d;
   --success-color: #28a745;
 }
 
@@ -20,27 +20,33 @@
   --primary-hover: #0056b3;
   --secondary-color: #e63946;
   --secondary-hover: #b82c38;
-  --background-color: #121212;
-  --card-background: #1e1e1e;
-  --text-color: #e4e6eb;
-  --light-text-color: #b0b3b8;
-  --border-color: #3a3b3c;
+  --background-color: rgba(40, 40, 40, 0.55);
+  --card-background: #595959;
+  --text-color: #ffffff;
+  --light-text-color: #dbe3e7;
+  --border-color: rgba(0, 0, 0, 0.3);
   --success-color: #28a745;
 }
-
+:root[data-theme='dark'] .main-container {
+    background-color: rgba(30, 30, 30, 0.7); /* Dark semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  transition: background-color 0.3s, color 0.3s;
+    font-family: 'Poppins', sans-serif;
+    /* The old background-color is now a fallback */
+    background-color: var(--background-color);
+    /* NEW: A subtle gradient background image */
+    background-image: linear-gradient(180deg, rgba(162, 17, 17, 0.75) 0%, rgba(5, 15, 131, 0.56) 100%);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* --- Logo Styles --- */
@@ -56,14 +62,20 @@ body {
 
 /* --- Main Containers --- */
 .main-container {
-  background-color: var(--card-background);
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 650px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
+    /* NEW: Semi-transparent background */
+    background-color: rgba(255, 255, 255, 0.7);
+    /* NEW: The blur effect for the "frosted glass" look */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+
+    padding: 30px 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* A subtle border */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 650px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
 .hidden {
@@ -316,7 +328,7 @@ button.secondary, #logout-button {
 }
 .result-item.winner .result-bar-text .option-label,
 .result-item.winner .result-bar-text .vote-label {
-  color: white;
+  color: #000000;
 }
 .result-card .final-winner-announcement {
   text-align: center;
@@ -446,7 +458,7 @@ button:not(:disabled):hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #e3a80d;
   transition: .4s;
   border-radius: 26px;
   display: flex;
