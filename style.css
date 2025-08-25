@@ -707,3 +707,32 @@ input:checked + .slider:before {
   .fullscreen-header span:last-child { font-size: 2em; }
   #fs-status { font-size: 2.5em; }
 }
+
+/* --- New styles for the fullscreen button --- */
+.result-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.result-card-header h3 {
+    margin: 0;
+}
+
+.fullscreen-btn {
+    background-color: transparent;
+
+
+    padding: 5px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.fullscreen-btn:hover {
+    background-color: var(--background-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
