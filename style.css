@@ -328,7 +328,8 @@ button.secondary, #logout-button {
 }
 .result-item.winner .result-bar-text .option-label,
 .result-item.winner .result-bar-text .vote-label {
-  color: #000000;
+  color: #ffffff;
+    text-shadow: -0.7px -0.7px 0 #565656, 0.7px -0.7px 0 #565656, -0.7px 0.7px 0 #565656, 0.7px 0.7px 0 #565656;
 }
 .result-card .final-winner-announcement {
   text-align: center;
