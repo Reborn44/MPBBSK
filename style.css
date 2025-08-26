@@ -7,7 +7,7 @@
   --primary-hover: #003d75;
   --secondary-color: #d40000;
   --secondary-hover: #a30000;
-  --background-color: rgba(224, 224, 224, 0.72);
+  --background-color: rgba(255, 255, 255, 0.72);
   --card-background: #ffffff;
   --text-color: #1c1e21;
   --light-text-color: #1e1a1a;
@@ -161,9 +161,9 @@ button:active {
 button.secondary, #logout-button {
   background-color: var(--secondary-color);
   color: white;
+
 }
 
-/* --- App View --- */
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -189,6 +189,8 @@ button.secondary, #logout-button {
 .user-name {
   font-weight: 600;
   font-size: 16px;
+    align-items: center;
+
 }
 
 .user-email {
@@ -736,3 +738,46 @@ input:checked + .slider:before {
     color: var(--primary-color);
 }
 
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+    border: 2px solid var(--card-background);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#feedback-container h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+#feedback-container p {
+    color: var(--light-text-color);
+    font-size: 0.9em;
+    margin-bottom: 25px;
+}
+#feedback-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 120px;
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+#submit-feedback-btn {
+    background-color: var(--success-color);
+    color: white;
+}

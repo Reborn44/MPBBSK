@@ -39,6 +39,12 @@ const fsCloseBtn = document.getElementById('fs-close-btn');
 const fsDate = document.getElementById('fs-date');
 const fsTime = document.getElementById('fs-time');
 const fullscreenLogo = document.querySelector('.fullscreen-logo');
+const userAvatar = document.getElementById('user-avatar');
+const feedbackContainer = document.getElementById('feedback-container');
+const showFeedbackBtn = document.getElementById('show-feedback-btn');
+const feedbackTextarea = document.getElementById('feedback-textarea');
+const submitFeedbackBtn = document.getElementById('submit-feedback-btn');
+
 
 let voteSubscription = null;
 
@@ -110,20 +116,65 @@ themeToggle.addEventListener('click', () => {
 showActivePollsBtn.addEventListener('click', () => {
     pollsContainer.classList.remove('hidden');
     resultsContainer.classList.add('hidden');
+    feedbackContainer.classList.add('hidden');
     showActivePollsBtn.classList.add('active');
     showResultsBtn.classList.remove('active');
+    showFeedbackBtn.classList.remove('active');
     resultsContainer.innerHTML = '';
-    fetchPolls();
+    fetchPolls()
 });
 
 showResultsBtn.addEventListener('click', () => {
     pollsContainer.classList.add('hidden');
     resultsContainer.classList.remove('hidden');
+    feedbackContainer.classList.add('hidden');
     showActivePollsBtn.classList.remove('active');
     showResultsBtn.classList.add('active');
+    showFeedbackBtn.classList.remove('active');
     pollsContainer.innerHTML = '';
     fetchResults();
 });
+
+showFeedbackBtn.addEventListener('click', () => {
+    pollsContainer.classList.add('hidden');
+    resultsContainer.classList.add('hidden');
+    feedbackContainer.classList.remove('hidden');
+    showActivePollsBtn.classList.remove('active');
+    showResultsBtn.classList.remove('active');
+    showFeedbackBtn.classList.add('active');
+    resultsContainer.innerHTML = '';
+    pollsContainer.innerHTML = '';
+});
+
+submitFeedbackBtn.addEventListener('click', async () => {
+    const content = feedbackTextarea.value.trim();
+    if (content.length < 3) {
+        return showToast('Váš podnet musí mať aspoň 3 znakov.', 'error')
+    }
+    const { data: { user }} = await supabaseClient.auth.getUser();
+    if (!user) {
+        return showToast('Pre odoslanie podnetu musíte byť prihlásený.', 'error');
+    }
+
+    try {
+        const { error } = await supabaseClient.from('feedback').insert([
+            { content: content, user_id: user.id }
+        ]);
+
+        if (error) throw error;
+
+        showToast('Ďakujeme! Váš podnet bol úspešne odoslaný.');
+        feedbackTextarea.value = '';
+        showActivePollsBtn.click();
+    } catch (error) {
+        console.error('Error submitting feedback:', error);
+        showToast('Ľutujeme, pri odosielaní podnetu sa vyskytla chyba.', 'error')
+    }
+
+
+});
+
+
 
 fsCloseBtn.addEventListener('click', () => {
     fullscreenModal.classList.add('hidden');
@@ -178,6 +229,28 @@ const loadTheme = () => {
     } else {
         setTheme('light');
     }
+};
+
+// Generates initials from a full name
+const getInitials = (fullName) => {
+    if (!fullName || typeof fullName !== 'string') return '?';
+    const names = fullName.trim().split(' ');
+    if (names.length === 1) return names[0].charAt(0).toUpperCase();
+    return (names[0].charAt(0) + names[names.length - 1].charAt(0)).toUpperCase();
+};
+
+// Generates a unique, consistent color for a user based on their ID
+const generateColorForId = (id) => {
+    const colors = ['#e53935', '#d81b60', '#8e24aa', '#5e35b1', '#3949ab', '#1e88e5', '#039be5', '#00acc1', '#00897b', '#43a047', '#7cb342', '#c0ca33', '#fdd835', '#ffb300', '#fb8c00', '#f4511e'];
+    let hash = 0;
+    if (!id || id.length === 0) return colors[0];
+    for (let i = 0; i < id.length; i++) {
+        const char = id.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
 };
 
 const showFullscreenResults = async (poll) => {
@@ -252,15 +325,24 @@ const subscribeToVotes = () => {
 const handleUserLoggedIn = (user) => {
     authContainer.classList.add('hidden');
     appContainer.classList.add('hidden');
-    const welcomeName = user.user_metadata.full_name || user.email;
-    welcomeMessage.innerText = `Vitaj, ${welcomeName}`;
+
+    const fullName = user.user_metadata.full_name || user.email;
+    const nickname = user.user_metadata.nickname || user.email.split('@')[0];
+
+    // --- Avatar Logic ---
+    const initials = getInitials(fullName);
+    const avatarColor = generateColorForId(user.id);
+    userAvatar.textContent = initials;
+    userAvatar.style.backgroundColor = avatarColor;
+
+    welcomeMessage.innerText = `Vitaj, ${fullName}`;
     welcomeAnimationContainer.classList.remove('hidden');
     subscribeToVotes();
+
     setTimeout(() => {
         welcomeAnimationContainer.classList.add('hidden');
         appContainer.classList.remove('hidden');
-        const headerDisplayName = user.user_metadata.full_name || user.user_metadata.nickname || user.email.split('@')[0];
-        userNameDisplay.textContent = headerDisplayName;
+        userNameDisplay.textContent = nickname; // Display nickname
         userEmailDisplay.textContent = user.email;
         showActivePollsBtn.click();
     }, 3000);
@@ -414,6 +496,7 @@ const castVote = async (pollId, selectedOption, user) => {
         showToast('Ľutujeme, pri odosielaní hlasu sa vyskytla chyba.', 'error');
     }
 };
+
 
 // --- INITIAL LOAD & AUTH STATE CHANGE ---
 loadTheme();
