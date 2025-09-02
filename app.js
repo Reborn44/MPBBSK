@@ -373,6 +373,26 @@ const loadProfileData = async () => {
     }
 };
 
+const formatTimeRemaining = (endDate) => {
+    if (!endDate) return null;
+    const now = new Date();
+    const end = new Date(endDate);
+    const diff = end - now;
+
+    if (diff <= 0) return 'Hlasovanie ukončené';
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+
+    let parts = [];
+    if (days > 0) parts.push(`${days}d`);
+    if (hours > 0) parts.push(`${hours}h`);
+    if (minutes > 0 && days === 0) parts.push(`${minutes}m`);
+
+    if (parts.length === 0) return 'Koniec za menej ako minútu';
+    return `Koniec za: ${parts.join(' ')}`;
+};
 // =================================================================================
 // Core Application Logic
 // =================================================================================
@@ -446,15 +466,22 @@ const fetchPolls = async () => {
                     <label for="option-${poll.id}-${option}" class="option-label">${option}</label>
                 </div>
             `).join('');
+
+            // New timer logic
+            const timeRemaining = formatTimeRemaining(poll.end_date);
+            const timerHTML = timeRemaining ? `<div class="countdown-timer">${timeRemaining}</div>` : '';
+            const isPollFinished = timeRemaining === 'Hlasovanie ukončené';
+
             pollCard.innerHTML = `
+                ${timerHTML}
                 <h3>${poll.question}</h3>
                 <form>
                     <div class="options">${optionsHTML}</div>
-                    <button type="submit" ${hasUserVoted ? 'disabled' : ''}>${hasUserVoted ? 'Už ste hlasovali' : 'Odoslať môj hlas'}</button>
+                    <button type="submit" ${hasUserVoted || isPollFinished ? 'disabled' : ''}>${hasUserVoted ? 'Už ste hlasovali' : (isPollFinished ? 'Ukončené' : 'Odoslať môj hlas')}</button>
                 </form>
             `;
             pollsContainer.appendChild(pollCard);
-            if (!hasUserVoted) {
+            if (!hasUserVoted && !isPollFinished) {
                 pollCard.querySelector('form').addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const selectedOption = pollCard.querySelector(`input[name="poll-${poll.id}"]:checked`);

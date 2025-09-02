@@ -808,3 +808,11 @@ input:checked + .slider:before {
     flex: none;
     width: auto;
 }
+
+.countdown-timer {
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--secondary-color);
+    text-align: right;
+    margin-bottom: 10px;
+}
