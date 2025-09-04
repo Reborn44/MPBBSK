@@ -53,6 +53,8 @@ const profilePasswordInput = document.getElementById('profile-password');
 
 
 let voteSubscription = null;
+let isTourRunning = false;
+let chartInstances = {};
 
 // --- EVENT LISTENERS ---
 
@@ -241,6 +243,60 @@ fsCloseBtn.addEventListener('click', () => {
 // =================================================================================
 // UI Functions
 // =================================================================================
+
+
+const startOnboardingTour = () => {
+    const tour = new Shepherd.Tour({
+        useModalOverlay: true,
+        defaultStepOptions: {
+            classes: 'shepherd-theme-arrows',
+            scrollTo: true,
+            cancelIcon: { enabled: true },
+        }
+    });
+
+    tour.addStep({
+        title: 'Vitajte v Hlasovacom Systéme MP-BBSK!',
+        text: 'Ukážeme vám, ako sa tu orientovať. Kliknite na "Ďalej" pre pokračovanie.',
+        buttons: [{ text: 'Ďalej', action: tour.next }]
+    });
+    tour.addStep({
+        title: 'Váš Účet',
+        text: 'Tu vidíte svoj profilový avatar, meno a email. Tlačidlom sa môžete kedykoľvek odhlásiť.',
+        attachTo: { element: '.user-info', on: 'bottom' },
+        buttons: [{ text: 'Späť', action: tour.back }, { text: 'Ďalej', action: tour.next }]
+    });
+    tour.addStep({
+        title: 'Navigácia',
+        text: 'Týmito kartami prepínate medzi rôznymi sekciami: aktívne hlasovania, výsledky, a ďalšie.',
+        attachTo: { element: '.app-nav', on: 'bottom' },
+        buttons: [{ text: 'Späť', action: tour.back }, { text: 'Ďalej', action: tour.next }]
+    });
+    tour.addStep({
+        title: 'Aktívne Hlasovanie',
+        text: 'Tu vidíte hlasovanie, ktoré práve prebieha. Vyberte si jednu z možností.',
+        attachTo: { element: '.poll-card', on: 'bottom' },
+        buttons: [{ text: 'Späť', action: tour.back }, { text: 'Ďalej', action: tour.next }]
+    });
+    tour.addStep({
+        title: 'Odoslanie Hlasu',
+        text: 'Po výbere možnosti odošlite svoj hlas kliknutím na toto tlačidlo.',
+        attachTo: { element: '.poll-card button', on: 'top' },
+        buttons: [{ text: 'Späť', action: tour.back }, { text: 'Dokončiť', action: tour.complete }]
+    });
+
+    // Mark tour as complete when finished or cancelled
+    tour.on('complete', () => localStorage.setItem('onboardingTourCompleted', 'true'));
+    tour.on('cancel', () => localStorage.setItem('onboardingTourCompleted', 'true'));
+
+    tour.start();
+};
+
+
+
+
+
+
 
 const showToast = (message, type = 'success') => {
     const toastContainer = document.getElementById('toast-container');
@@ -431,7 +487,11 @@ const handleUserLoggedIn = (user) => {
         userNameDisplay.textContent = nickname; // Display nickname
         userEmailDisplay.textContent = user.email;
         showActivePollsBtn.click();
-    }, 3000);
+
+        if (!localStorage.getItem('onboardingTourCompleted') && !isTourRunning) {
+            isTourRunning = true;
+            setTimeout(startOnboardingTour, 1200);}
+        }, 3000);
 };
 
 const handleUserLoggedOut = () => {

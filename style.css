@@ -816,3 +816,52 @@ input:checked + .slider:before {
     text-align: right;
     margin-bottom: 10px;
 }
+
+.shepherd-element {
+    background-color: var(--card-background);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 13px;
+    border: 1.5px solid white;
+    max-width: 400px;
+}
+
+.shepherd-element .shepherd-header {
+    background-color: #110d0d !important;
+    padding: 1em 1.5em;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+}
+
+.shepherd-title {
+    color: white;
+    align-items: center;
+    font-size: 1.0em;
+    font-weight: 600;
+}
+
+.shepherd-text {
+    color: var(--light-text-color);
+    padding: 1em 1.5em 1em 1.5em;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+.shepherd-button {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+}
+
+.shepherd-button:not(.shepherd-button-secondary):hover {
+    background: var(--primary-hover);
+    filter: brightness(1.1);
+}
+
+.shepherd-button.shepherd-button-secondary {
+    background: #777;
+}
+
