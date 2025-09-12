@@ -40,16 +40,7 @@ const fsDate = document.getElementById('fs-date');
 const fsTime = document.getElementById('fs-time');
 const fullscreenLogo = document.querySelector('.fullscreen-logo');
 const userAvatar = document.getElementById('user-avatar');
-const feedbackContainer = document.getElementById('feedback-container');
-const showFeedbackBtn = document.getElementById('show-feedback-btn');
-const feedbackTextarea = document.getElementById('feedback-textarea');
-const submitFeedbackBtn = document.getElementById('submit-feedback-btn');
-const profileContainer = document.getElementById('profile-container');
-const showProfileBtn = document.getElementById('show-profile-btn');
-const updateNameBtn = document.getElementById('update-name-btn');
-const updatePasswordBtn = document.getElementById('update-password-btn');
-const profileNameInput = document.getElementById('profile-name');
-const profilePasswordInput = document.getElementById('profile-password');
+
 
 
 let voteSubscription = null;
@@ -124,12 +115,10 @@ themeToggle.addEventListener('click', () => {
 showActivePollsBtn.addEventListener('click', () => {
     pollsContainer.classList.remove('hidden');
     resultsContainer.classList.add('hidden');
-    feedbackContainer.classList.add('hidden');
-    profileContainer.classList.add('hidden');
+
     showActivePollsBtn.classList.add('active');
     showResultsBtn.classList.remove('active');
-    showFeedbackBtn.classList.remove('active');
-    showProfileBtn.classList.remove('active');
+
     resultsContainer.innerHTML = '';
     fetchPolls()
 });
@@ -137,104 +126,19 @@ showActivePollsBtn.addEventListener('click', () => {
 showResultsBtn.addEventListener('click', () => {
     pollsContainer.classList.add('hidden');
     resultsContainer.classList.remove('hidden');
-    feedbackContainer.classList.add('hidden');
-    profileContainer.classList.add('hidden');
+
     showActivePollsBtn.classList.remove('active');
     showResultsBtn.classList.add('active');
-    showFeedbackBtn.classList.remove('active');
-    showProfileBtn.classList.remove('active');
+
     pollsContainer.innerHTML = '';
     fetchResults();
 });
 
-showFeedbackBtn.addEventListener('click', () => {
-    pollsContainer.classList.add('hidden');
-    resultsContainer.classList.add('hidden');
-    feedbackContainer.classList.remove('hidden');
-    profileContainer.classList.add('hidden');
-    showActivePollsBtn.classList.remove('active');
-    showResultsBtn.classList.remove('active');
-    showFeedbackBtn.classList.add('active');
-    showProfileBtn.classList.remove('active');
-    resultsContainer.innerHTML = '';
-    pollsContainer.innerHTML = '';
-});
-
-showProfileBtn.addEventListener('click', () => {
-    pollsContainer.classList.add('hidden');
-    resultsContainer.classList.add('hidden');
-    feedbackContainer.classList.add('hidden');
-    profileContainer.classList.remove('hidden');
-    showActivePollsBtn.classList.remove('active');
-    showResultsBtn.classList.remove('active');
-    showFeedbackBtn.classList.remove('active');
-    showProfileBtn.classList.add('active');
-    resultsContainer.innerHTML = '';
-    pollsContainer.innerHTML = '';
-    loadProfileData();
 
 
 
-})
-
-submitFeedbackBtn.addEventListener('click', async () => {
-    const content = feedbackTextarea.value.trim();
-    if (content.length < 3) {
-        return showToast('Váš podnet musí mať aspoň 3 znakov.', 'error')
-    }
-    const { data: { user }} = await supabaseClient.auth.getUser();
-    if (!user) {
-        return showToast('Pre odoslanie podnetu musíte byť prihlásený.', 'error');
-    }
-
-    try {
-        const { error } = await supabaseClient.from('feedback').insert([
-            { content: content, user_id: user.id }
-        ]);
-
-        if (error) throw error;
-
-        showToast('Ďakujeme! Váš podnet bol úspešne odoslaný.');
-        feedbackTextarea.value = '';
-        showActivePollsBtn.click();
-    } catch (error) {
-        console.error('Error submitting feedback:', error);
-        showToast('Ľutujeme, pri odosielaní podnetu sa vyskytla chyba.', 'error')
-    }
 
 
-});
-// FINISH THIS LATER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-updateNameBtn.addEventListener('click', async () => {
-    const newName = profileNameInput.value.trim()
-
-    if (!newName) return showToast('Meno nemôže byť prázdne.', 'error');
-
-    const {data: {user}, error} = await supabaseClient.auth.updateUser({
-        data: {full_name: newName}
-    });
-
-    if (error) {
-        showToast('Nepodarilo sa aktualizovať meno: ' + error.message, 'error');
-    } else {
-        showToast('Meno bolo úspešne aktualizované.');
-        userNameDisplay.textContent = user.user_metadata.fullname;
-    }
-});
-
-updatePasswordBtn.addEventListener('click', async () => {
-    const newPassword = profilePasswordInput.value;
-    if (newPassword.length < 6) return showToast('Nové heslo musí mať aspoň 6 znakov.', 'error');
-
-    const { error } = await supabaseClient.auth.updateUser({password: newPassword});
-
-    if (error) {
-        showToast('Nepodarilo sa aktualizovať heslo: ' + error.message, 'error');
-    } else {
-        showToast('Heslo bolo úspešne aktualizované.');
-        profilePasswordInput.value = '';
-    }
-});
 
 fsCloseBtn.addEventListener('click', () => {
     fullscreenModal.classList.add('hidden');
