@@ -469,7 +469,6 @@ const handleUserLoggedIn = (user) => {
     appContainer.classList.add('hidden');
 
     const fullName = user.user_metadata.full_name || user.email;
-    const nickname = user.user_metadata.nickname || user.email.split('@')[0];
 
     // --- Avatar Logic ---
     const initials = getInitials(fullName);
@@ -484,7 +483,7 @@ const handleUserLoggedIn = (user) => {
     setTimeout(() => {
         welcomeAnimationContainer.classList.add('hidden');
         appContainer.classList.remove('hidden');
-        userNameDisplay.textContent = nickname; // Display nickname
+        userNameDisplay.textContent = fullName; // Display nickname
         userEmailDisplay.textContent = user.email;
         showActivePollsBtn.click();
 
