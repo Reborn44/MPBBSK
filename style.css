@@ -521,7 +521,7 @@ input:checked + .slider:before {
 }
 
 .fullscreen-content {
-  color: white;
+  color: #ffffff;
   width: 100%;
   height: 100%;
   display: flex;
@@ -704,6 +704,16 @@ input:checked + .slider:before {
 #fs-close-btn:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+.fullscreen-btn {
+    background-color: transparent;
+    width: 75px;
+    height: 25px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
   .fullscreen-header span:first-child { font-size: 1em; }
   .fullscreen-header span:last-child { font-size: 2em; }

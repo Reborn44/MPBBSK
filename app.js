@@ -45,7 +45,7 @@ const userAvatar = document.getElementById('user-avatar');
 
 let voteSubscription = null;
 let isTourRunning = false;
-let chartInstances = {};
+
 
 // --- EVENT LISTENERS ---
 
@@ -516,7 +516,7 @@ const fetchResults = async () => {
             }
             const footerHTML = `
                 <div class="result-card-footer">
-                    <button id="generate-fs-btn-${poll.poll_id}">Generovať obrazovku</button>
+                    <button id="generate-fs-btn-${poll.poll_id}" class="fullscreen-btn"></button>
                 </div>
             `;
             resultCard.innerHTML = `<h3>${poll.question}</h3> ${resultsHTML} ${winnerAnnouncement} ${footerHTML}`;
