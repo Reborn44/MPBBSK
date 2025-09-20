@@ -54,6 +54,7 @@ showLoginBtn.addEventListener('click', () => {
     signupForm.classList.add('hidden');
     showLoginBtn.classList.add('active');
     showSignupBtn.classList.remove('active');
+    loginEmailInput.focus();
 });
 
 showSignupBtn.addEventListener('click', () => {
@@ -61,6 +62,7 @@ showSignupBtn.addEventListener('click', () => {
     signupForm.classList.remove('hidden');
     showLoginBtn.classList.remove('active');
     showSignupBtn.classList.add('active');
+    signupFirstnameInput.focus();
 });
 
 loginButton.addEventListener('click', async () => {
@@ -70,6 +72,7 @@ loginButton.addEventListener('click', async () => {
     });
     if (error)
         showToast('Chyba pri prihlasovaní: ' + error.message, 'error');
+    hideSpinner(loginButton);
 });
 
 signupButton.addEventListener('click', async () => {
@@ -84,6 +87,7 @@ signupButton.addEventListener('click', async () => {
     if (signupPasswordInput.value.length < 6) {
         return showToast('Heslo musí mať aspoň 6 znakov.', 'error');
     }
+    showSpinner(signupButton);
     const { error } = await supabaseClient.auth.signUp({
         email: signupEmailInput.value,
         password: signupPasswordInput.value,
@@ -95,6 +99,8 @@ signupButton.addEventListener('click', async () => {
         showToast('Registrácia úspešná! Prosím, potvrďte svoj email.');
     }
 });
+
+document.addEventListener('contextmenu', event => event.preventDefault());
 
 logoutButton.addEventListener('click', () => {
     if (voteSubscription) {
@@ -148,6 +154,17 @@ fsCloseBtn.addEventListener('click', () => {
 // UI Functions
 // =================================================================================
 
+
+const showSpinner = (button) => {
+    button.disabled = true;
+    button.dataset.originalText = button.innerHTML;
+    button.innerHTML = '<div class="spinner"></div>';
+}
+
+const hideSpinner = (button) => {
+    button.disabled = false;
+    button.innerHTML = button.dataset.originalText;
+}
 
 const startOnboardingTour = () => {
     const tour = new Shepherd.Tour({
@@ -401,6 +418,7 @@ const handleUserLoggedOut = () => {
     authContainer.classList.remove('hidden');
     appContainer.classList.add('hidden');
     welcomeAnimationContainer.classList.add('hidden');
+    loginEmailInput.focus();
 };
 
 const fetchPolls = async () => {
@@ -531,7 +549,8 @@ const fetchResults = async () => {
     }
 };
 
-const castVote = async (pollId, selectedOption, user) => {
+const castVote = async (pollId, selectedOption, user, button) => {
+    showSpinner(button);
     try {
         const { error } = await supabaseClient.from('votes').insert([{
             poll_id: pollId,

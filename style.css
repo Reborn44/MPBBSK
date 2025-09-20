@@ -155,12 +155,12 @@ button:active {
 
 #login-button, #signup-button {
   background-color: var(--primary-color);
-  color: white;
+  color: #ffffff;
 }
 
 button.secondary, #logout-button {
   background-color: var(--secondary-color);
-  color: white;
+  color: #ffffff;
 
 }
 
@@ -265,7 +265,7 @@ button.secondary, #logout-button {
 .poll-card button {
   width: 100%;
   background-color: var(--success-color);
-  color: white;
+  color: #ffffff;
 }
 
 .poll-card button:disabled {
@@ -340,7 +340,7 @@ button.secondary, #logout-button {
   margin-top: 20px;
   padding: 10px;
   background-color: var(--primary-color);
-  color: white;
+  color: #ffffff;
   border-radius: 6px;
 }
 :root[data-theme='dark'] .result-bar-container {
@@ -478,7 +478,7 @@ button:not(:disabled):hover {
   width: 18px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: #ffffff;
   transition: .4s;
   border-radius: 50%;
 }
@@ -858,7 +858,7 @@ input:checked + .slider:before {
 
 .shepherd-button {
     background: var(--primary-color);
-    color: white;
+    color: #ffffff;
     padding: 8px 16px;
     border-radius: 8px;
     font-weight: 500;
@@ -875,3 +875,16 @@ input:checked + .slider:before {
     background: #777;
 }
 
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg);}
+}
