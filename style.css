@@ -843,7 +843,7 @@ input:checked + .slider:before {
 }
 
 .shepherd-title {
-    color: white;
+    color: #ffffff;
     align-items: center;
     font-size: 1.0em;
     font-weight: 600;

@@ -1,6 +1,6 @@
 const SUPABASE_URL = 'https://rbkjhmustsmxcendkyxj.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJia2pobXVzdHNteGNlbmRreXhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5ODE5NTQsImV4cCI6MjA2NzU1Nzk1NH0.E1dkg5_wNHmLovmQ3k7n3oQf3zd_Ag-cB0fsUo0yjls';
-
+//DONT YOU DARE STEAL THIS
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // --- DOM ELEMENT REFERENCES ---
@@ -40,8 +40,6 @@ const fsDate = document.getElementById('fs-date');
 const fsTime = document.getElementById('fs-time');
 const fullscreenLogo = document.querySelector('.fullscreen-logo');
 const userAvatar = document.getElementById('user-avatar');
-
-
 
 let voteSubscription = null;
 let isTourRunning = false;
@@ -154,7 +152,7 @@ fsCloseBtn.addEventListener('click', () => {
 
 
 
-
+//this button does this and that button does that
 const startOnboardingTour = () => {
     const tour = new Shepherd.Tour({
         useModalOverlay: true,
@@ -203,11 +201,7 @@ const startOnboardingTour = () => {
 };
 
 
-
-
-
-
-
+//because the normal chrome popout was boring
 const showToast = (message, type = 'success') => {
     const toastContainer = document.getElementById('toast-container');
     if (!toastContainer) return;
@@ -222,6 +216,7 @@ const showToast = (message, type = 'success') => {
     }, 4000);
 };
 
+//bone loader (why is it a skeleton loader?)
 const renderSkeletonLoader = (container) => {
     if (!container) return;
     container.innerHTML = '';
@@ -237,12 +232,14 @@ const renderSkeletonLoader = (container) => {
     }
 };
 
+//dark mode
 const setTheme = (theme) => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     if (themeToggle) themeToggle.checked = theme === 'dark';
 };
 
+//so you want dark mode?
 const loadTheme = () => {
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -255,7 +252,7 @@ const loadTheme = () => {
     }
 };
 
-// Generates initials from a full name
+//First name and last name first letter cutter tool
 const getInitials = (fullName) => {
     if (!fullName || typeof fullName !== 'string') return '?';
     const names = fullName.trim().split(' ');
@@ -263,7 +260,7 @@ const getInitials = (fullName) => {
     return (names[0].charAt(0) + names[names.length - 1].charAt(0)).toUpperCase();
 };
 
-// Generates a unique, consistent color for a user based on their ID
+//Different colors for everyone!
 const generateColorForId = (id) => {
     const colors = ['#e53935', '#d81b60', '#8e24aa', '#5e35b1', '#3949ab', '#1e88e5', '#039be5', '#00acc1', '#00897b', '#43a047', '#7cb342', '#c0ca33', '#fdd835', '#ffb300', '#fb8c00', '#f4511e'];
     let hash = 0;
@@ -277,6 +274,7 @@ const generateColorForId = (id) => {
     return colors[index];
 };
 
+//Inspired by Narodna rada Slovensko
 const showFullscreenResults = async (poll) => {
     const results = poll.results || {};
     let totalVotesCast = 0;
@@ -331,14 +329,7 @@ const showFullscreenResults = async (poll) => {
     fullscreenModal.classList.remove('hidden');
 };
 
-const loadProfileData = async () => {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (user) {
-        profileNameInput.value = user.user_metadata.full_name || '';
-        profilePasswordInput.value = '';
-    }
-};
-
+//times ticking so get to voting
 const formatTimeRemaining = (endDate) => {
     if (!endDate) return null;
     const now = new Date();
@@ -363,6 +354,7 @@ const formatTimeRemaining = (endDate) => {
 // Core Application Logic
 // =================================================================================
 
+//What does this even do??
 const subscribeToVotes = () => {
     if (voteSubscription) return;
     voteSubscription = supabaseClient.channel('public:votes')
@@ -374,6 +366,7 @@ const subscribeToVotes = () => {
         .subscribe();
 };
 
+//Im glad you logged in
 const handleUserLoggedIn = (user) => {
     authContainer.classList.add('hidden');
     appContainer.classList.add('hidden');
@@ -403,6 +396,7 @@ const handleUserLoggedIn = (user) => {
         }, 3000);
 };
 
+// why would you log out?!
 const handleUserLoggedOut = () => {
     authContainer.classList.remove('hidden');
     appContainer.classList.add('hidden');
@@ -410,6 +404,7 @@ const handleUserLoggedOut = () => {
     loginEmailInput.focus();
 };
 
+//get new polls in the first tab
 const fetchPolls = async () => {
     renderSkeletonLoader(pollsContainer);
     try {
@@ -469,6 +464,7 @@ const fetchPolls = async () => {
     }
 };
 
+// get results in the second tab
 const fetchResults = async () => {
     renderSkeletonLoader(resultsContainer);
     try {
@@ -537,7 +533,7 @@ const fetchResults = async () => {
         resultsContainer.innerHTML = '<p>Ľutujeme, pri načítaní výsledkov sa vyskytla chyba.</p>';
     }
 };
-
+//VOTING LOGIC
 const castVote = async (pollId, selectedOption, user,) => {
     try {
         const { error } = await supabaseClient.from('votes').insert([{
