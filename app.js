@@ -72,7 +72,6 @@ loginButton.addEventListener('click', async () => {
     });
     if (error)
         showToast('Chyba pri prihlasovaní: ' + error.message, 'error');
-    hideSpinner(loginButton);
 });
 
 signupButton.addEventListener('click', async () => {
@@ -87,7 +86,6 @@ signupButton.addEventListener('click', async () => {
     if (signupPasswordInput.value.length < 6) {
         return showToast('Heslo musí mať aspoň 6 znakov.', 'error');
     }
-    showSpinner(signupButton);
     const { error } = await supabaseClient.auth.signUp({
         email: signupEmailInput.value,
         password: signupPasswordInput.value,
@@ -155,16 +153,7 @@ fsCloseBtn.addEventListener('click', () => {
 // =================================================================================
 
 
-const showSpinner = (button) => {
-    button.disabled = true;
-    button.dataset.originalText = button.innerHTML;
-    button.innerHTML = '<div class="spinner"></div>';
-}
 
-const hideSpinner = (button) => {
-    button.disabled = false;
-    button.innerHTML = button.dataset.originalText;
-}
 
 const startOnboardingTour = () => {
     const tour = new Shepherd.Tour({
@@ -549,8 +538,7 @@ const fetchResults = async () => {
     }
 };
 
-const castVote = async (pollId, selectedOption, user, button) => {
-    showSpinner(button);
+const castVote = async (pollId, selectedOption, user,) => {
     try {
         const { error } = await supabaseClient.from('votes').insert([{
             poll_id: pollId,
