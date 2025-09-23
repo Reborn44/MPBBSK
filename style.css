@@ -1,6 +1,6 @@
 /* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
+/* main part */
 /* --- Color Palette --- */
 :root {
   --primary-color: #0053a0;
@@ -32,6 +32,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* --- Global Styles --- */
 body {
     font-family: 'Poppins', sans-serif;
     /* The old background-color is now a fallback */
