@@ -25,6 +25,22 @@ self.addEventListener('install', (event) => {
 
 // 2. Activate event: Clean up old caches.
 // This is crucial for ensuring users get updated files when you release a new version.
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        console.log('Deleting old cache:', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+});
+
+// 3. Fetch event: Intercept network requests.
 self.addEventListener('fetch', (event) => {
     const { request } = event;
 
