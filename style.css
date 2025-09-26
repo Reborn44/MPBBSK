@@ -62,6 +62,15 @@ body {
 }
 
 /* --- Main Containers --- */
+
+
+main {
+    transition: opacity 0.3s ease-in-out;
+}
+
+main.fade-out {
+    opacity: 0;
+}
 .main-container {
     /* NEW: Semi-transparent background */
     background-color: rgba(255, 255, 255, 0.7);

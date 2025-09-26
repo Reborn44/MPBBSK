@@ -454,7 +454,8 @@ const fetchPolls = async () => {
                         showToast('Prosím, vyberte jednu z možností.', 'error');
                         return;
                     }
-                    await castVote(poll.id, selectedOption.value, user);
+                    // CHANGE: Pass the pollCard element to the castVote function
+                    await castVote(poll.id, selectedOption.value, user, pollCard);
                 });
             }
         }
@@ -534,28 +535,57 @@ const fetchResults = async () => {
     }
 };
 //VOTING LOGIC
-const castVote = async (pollId, selectedOption, user,) => {
+const castVote = async (pollId, selectedOption, user, pollCard) => {
+    // --- Optimistic UI Update ---
+    // 1. Immediately select the UI elements we need to change.
+    const voteButton = pollCard.querySelector('button[type="submit"]');
+    const radioInputs = pollCard.querySelectorAll('input[type="radio"]');
+    const originalButtonText = voteButton.textContent; // Save original text for potential rollback
+
+    // 2. Instantly disable the form and update the button text.
+    // This makes the app feel instantaneous to the user.
+    voteButton.disabled = true;
+    voteButton.textContent = 'Už ste hlasovali';
+    radioInputs.forEach(input => {
+        input.disabled = true;
+    });
+
     try {
+        // 3. Send the request to Supabase in the background.
         const { error } = await supabaseClient.from('votes').insert([{
             poll_id: pollId,
             selected_option: selectedOption,
             user_id: user.id,
-            email: user.email
+            email: user.email // Note: Storing email here might be redundant if you join with the auth table.
         }]);
+
         if (error) {
-            if (error.code === '23505')
+            // An error occurred, so we need to decide what to do.
+            if (error.code === '23505') {
+                // This specific error means the user has already voted.
+                // Our optimistic UI is actually correct, so we just show the message.
                 showToast('V tomto hlasovaní ste už hlasovali.', 'error');
-            else
-                throw error;
+            } else {
+                // For any other error, we assume the vote failed and roll back the UI.
+                throw error; // Let the catch block handle the UI rollback.
+            }
         } else {
+            // Success! The UI is already updated, so we just show a confirmation.
             showToast('Váš hlas bol úspešne odoslaný!');
         }
     } catch (error) {
+        // --- UI Rollback ---
+        // 4. If a non-specific error happened, revert the UI to its original state.
         console.error('Error casting vote:', error);
         showToast('Ľutujeme, pri odosielaní hlasu sa vyskytla chyba.', 'error');
+
+        voteButton.disabled = false;
+        voteButton.textContent = originalButtonText;
+        radioInputs.forEach(input => {
+            input.disabled = false;
+        });
     }
 };
-
 
 // --- INITIAL LOAD & AUTH STATE CHANGE ---
 loadTheme();
