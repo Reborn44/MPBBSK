@@ -877,3 +877,23 @@ input:checked + .slider:before {
     background: #777;
 }
 
+
+/* --- Mobile Responsive Fixes --- */
+@media (max-width: 600px) {
+    .main-container {
+        padding: 20px;
+    }
+    .app-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .user-info, .theme-switcher {
+        width: 100%;
+        justify-content: space-between;
+        margin: 0;
+    }
+    .header-logo {
+        height: 200px;
+    }
+}
+
