@@ -167,18 +167,22 @@ button.secondary, #logout-button {
 }
 
 .app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 15px;
-  margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* NEW: Allows items to wrap to the next line */
+    justify-content: center; /* NEW: Centers items when they wrap */
+    gap: 15px; /* NEW: Adds consistent spacing */
 }
 
 .user-info {
   display: flex;
   align-items: center;
   gap: 15px;
+    min-width: 250px; /* NEW: Helps the flexbox wrapping behavior */
 }
 
 #user-details {
