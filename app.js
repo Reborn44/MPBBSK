@@ -279,6 +279,36 @@ const showFullscreenResults = async (poll) => {
     const results = poll.results || {};
     let totalVotesCast = 0;
     const fullscreenContent = document.querySelector('.fullscreen-content');
+
+    // --- NEW: Special logic for the "Member Count" poll ---
+    if (poll.question === "Preverenie uznášaniaschopnosti" && poll.options.length === 1 && poll.options[0] === "Som prítomný") {
+        const presentCount = results['Som prítomný'] || 0;
+
+        fsPresent.textContent = presentCount;
+        fsFor.textContent = '-';
+        fsAgainst.textContent = '-';
+        fsAbstained.textContent = '-';
+        fsNotVoted.textContent = '-';
+
+        if (presentCount >= 30) {
+            fsStatus.textContent = 'Valné zhromaždenie je uznášaniaschopné';
+            fullscreenContent.style.backgroundColor = '#003366'; // Blue background
+            fullscreenLogo.src = 'img.png';
+        } else {
+            fsStatus.textContent = 'Valné zhromaždenie nie je uznášaniaschopné';
+            fullscreenContent.style.backgroundColor = '#d40000'; // Red background
+            fullscreenLogo.src = 'img_1.png';
+        }
+
+        const now = new Date();
+        fsDate.textContent = now.toLocaleDateString('sk-SK');
+        fsTime.textContent = now.toLocaleTimeString('sk-SK', { hour: '2-digit', minute: '2-digit' });
+
+        fullscreenModal.classList.remove('hidden');
+        return; // Stop the function here for this special poll type
+    }
+
+    // --- Original logic for all other polls ---
     for (const option in results) {
         totalVotesCast += results[option];
     }
