@@ -901,3 +901,24 @@ input:checked + .slider:before {
     }
 }
 
+/* --- Fixes for Extra-Small Screens (e.g., iPhone SE) --- */
+@media (max-width: 380px) {
+    /* Make the header logo even smaller */
+    .header-logo {
+        height: 60px;
+    }
+
+    /* Target the user info section */
+    .user-info {
+        flex-direction: column; /* Stack the avatar/name and the logout button */
+        align-items: center;  /* Center them in the column */
+        gap: 15px;
+    }
+
+    /* Make the main navigation tabs wrap if needed */
+    .app-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
