@@ -14,7 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/shepherd.js@10.0.1/dist/js/shepherd.min.js"></script>
-    <script defer src="app.js"></script>
+    <!-- FIX: Re-added 'defer' to make the script wait until the HTML is loaded -->
+
+    <script src="app.js" defer></script>
 </head>
 <body>
 
@@ -56,7 +58,7 @@
         </div>
         <div class="form-control">
             <label for="signup-nickname">Heslo</label>
-            <input type="password" id="signup-nickname" placeholder="Zadajte znovu heslo. Minimálne 6 znakov">
+            <input type="password" id="signup-nickname" placeholder="Zadajte znovu heslo">
         </div>
         <button id="signup-button" class="full-width">Zaregistrovať sa</button>
     </div>
@@ -91,10 +93,39 @@
 
         <button id="show-active-polls-btn" class="active">Aktívne hlasovania</button>
         <button id="show-results-btn">Zobraziť výsledky</button>
+        <!-- NEW: Admin Button -->
+        <button id="show-admin-btn" class="hidden">Spravovať</button>
 
     </nav>
-    <main id="polls-container"></main>
-    <main id="results-container" class="hidden"></main>
+    <main id="polls-container" class="tab-content"></main>
+    <main id="results-container" class="tab-content hidden"></main>
+    <main id="admin-container" class="tab-content hidden">
+        <div class="admin-panel-section">
+            <h3>Vytvoriť nové hlasovanie</h3>
+            <form id="create-poll-form">
+                <div class="form-control">
+                    <label for="poll-question">Otázka</label>
+                    <input type="text" id="poll-question" placeholder="O čom sa hlasuje?" required>
+                </div>
+                <div class="form-control">
+                    <label for="poll-options">Možnosti (oddelené čiarkou)</label>
+                    <input type="text" id="poll-options" placeholder="Napr: Za, Proti, Zdržiavam sa" required>
+                </div>
+                <div class="form-control">
+                    <label for="poll-end-date">Dátum ukončenia (voliteľné)</label>
+                    <input type="datetime-local" id="poll-end-date">
+                </div>
+                <button id="create-poll-btn" type="submit" class="full-width button-success">Vytvoriť hlasovanie</button>
+            </form>
+        </div>
+
+        <div class="admin-panel-section">
+            <h3>Spravovať hlasovania</h3>
+            <div id="admin-poll-list">
+                <!-- Admin poll list will be rendered here by app.js -->
+            </div>
+        </div>
+    </main>
 </div>
 
 <footer>
@@ -149,3 +180,5 @@
 
 </body>
 </html>
+
+

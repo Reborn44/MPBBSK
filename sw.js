@@ -1,4 +1,4 @@
-const CACHE_NAME = "mpbbsk-hlasovanie-cache-v2";
+const CACHE_NAME = "mpbbsk-hlasovanie-cache-v3";
 const URLS_TO_CACHE = [
     '/',
     'index.html',
