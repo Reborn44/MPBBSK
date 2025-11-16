@@ -88,11 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Chyba pri prihlasovaní: ' + error.message, 'error');
     });
 
+    // --- REPLACE IT WITH THIS ---
     signupButton.addEventListener('click', async () => {
-        // MODIFIED: Added nickname
-        const nickname = signupNicknameInput.value.trim();
-        const fullName = `${signupFirstnameInput.value.trim()} ${signupLastnameInput.value.trim()}`;
+        // --- START OF ADDED CODE ---
+        const email = signupEmailInput.value;
+        const requiredDomain = '@krajskyparlament.sk';
 
+        if (!email || !email.toLowerCase().endsWith(requiredDomain)) {
+            return showToast(`Registrácia je povolená len pre emaily s doménou ${requiredDomain}`, 'error');
+        }
+        // --- END OF ADDED CODE ---
+
+        const nickname = document.getElementById('signup-nickname').value.trim();
+        const fullName = `${signupFirstnameInput.value.trim()} ${signupLastnameInput.value.trim()}`;
         if (!signupFirstnameInput.value || !signupLastnameInput.value) {
             return showToast('Prosím, zadajte vaše meno a priezvisko.', 'error');
         }
@@ -102,27 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (signupPasswordInput.value.length < 6) {
             return showToast('Heslo musí mať aspoň 6 znakov.', 'error');
         }
-
-        // MODIFIED: Pass nickname to Supabase metadata
         const { error } = await supabaseClient.auth.signUp({
-            email: signupEmailInput.value,
+            email: email, // Use the 'email' variable we just defined
             password: signupPasswordInput.value,
             options: { data: { full_name: fullName, nickname: nickname } }
         });
-
         if (error) {
             showToast('Chyba pri registrácii: ' + error.message, 'error');
         } else {
             showToast('Registrácia úspešná! Prosím, potvrďte svoj email.');
-            // After successful sign-up, also create a profile entry.
-            // This is crucial for the admin check later.
-            // Note: This might be better as a Supabase Function (trigger) for security.
-            // For now, we'll do it client-side.
-            // The `handleUserLoggedIn` function will soon run from onAuthStateChange
-            // and will also check for/create this profile.
         }
     });
-
     document.addEventListener('contextmenu', event => event.preventDefault());
 
     logoutButton.addEventListener('click', () => {
